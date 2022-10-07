@@ -1,3 +1,5 @@
+.gitignore
+
 /.vs
 /packages
 /psicologiamvc/Content/images
@@ -8,6 +10,4 @@
 /psicologiamvc/Obj
 /psicologiamvc/Properties
 /psicologiamvc/Scripts
-
-.gitignore
-Web.config
+/psicologiamvc/Web.config
