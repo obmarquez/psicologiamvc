@@ -8,3 +8,6 @@
 /psicologiamvc/Obj
 /psicologiamvc/Properties
 /psicologiamvc/Scripts
+
+.gitignore
+Web.config
