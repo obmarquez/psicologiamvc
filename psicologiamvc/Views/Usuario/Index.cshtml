@@ -1,0 +1,174 @@
+﻿@model IEnumerable<psicologiamvc.Models.Usuarios>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Administracion de Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Usuario", "Create")
+</p>
+
+<div style="width:100%; margin:0 auto" class="tablecontainer">
+
+    <table id="usuarios" class="display table table-striped table-bordered table-hover" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>ID USER</th>
+                <th>USUARIO</th>
+                <th>NOMBRE</th>
+                <th>A PATERNO</th>
+                <th>A MATERNO</th>
+                <th>ROL</th>
+                <th>FOTO</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        @*<tfoot>
+        <th>FECHA</th>
+        <th>ROL</th>
+        <th>NOMBRE</th>
+        <th>CORREO</th>
+        <th>ORIGEN</th>
+        <th>IP</th>
+        <th>NAVEGADOR</th>
+
+        </tfoot>*@
+    </table>
+</div>
+
+@section scripts
+{
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script language="javascript">    
+        var tableDataUrl = '@Url.Action("js_p_usuario_select", "Usuario")';
+        $(document).ready(function () {
+
+            var oTable = $('#usuarios').DataTable({"scrollX":true,                
+                 "ajax": {
+                    "url": tableDataUrl,
+                    "type": "get",
+                    "datatype": "json"
+                },
+                pageLength: 10,
+                dom: '<"html5buttons"B>lTfgitp',
+
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                },
+                "columns": [
+                    { "data": "Id_Usuario", "autoWidth": true },
+                    { "data": "UsuarioSise", "autoWidth": true },
+                    { "data": "Nombre", "autoWidth": true },
+                    { "data": "Ap_Paterno", "autoWidth": true },
+                    { "data": "Ap_Materno", "autoWidth": true },
+                    { "data": "Desc_Rol", "autoWidth": true },
+                    { "data": "Foto", "autoWidth": true },
+                     {
+                         "data": "Id_Usuario", "width": "50px", "render": function (data) {
+                             return '<a class="popup btn btn-primary" href="../Usuario/EditarUsuario?id=' + data + '"><i class="fa fa-pencil-square-o"></i>';
+                         }
+                     }
+
+                   ]
+            });          
+        });
+
+
+</script>    
+    
+    
+}
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id_Rol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ap_Paterno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ap_Materno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Desc_Rol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_Usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_Rol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ap_Paterno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ap_Materno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desc_Rol)
+            </td>
+            <td>           
+                <img alt="image" class="img-circle" src="~/Content/img/profile_small.jpg" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>*@

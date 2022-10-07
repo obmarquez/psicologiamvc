@@ -1,0 +1,140 @@
+﻿@model psicologiamvc.Models.Evaluacion
+@{
+    ViewBag.Title = "Detalle de la Evaluacion" + Model.curp_evaluado;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Detalle de Evaluación
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>IdHistorico</dt>
+            <dd>@Model.idhistorico</dd>
+            <dt>IdE</dt>
+            <dd>@Model.idhistorico</dd>
+            <dt>Curp</dt>
+            <dd>@Model.curp_evaluado</dd>
+            <dt>Bender</dt>
+            <dd>@Model.cBender</dd>
+            <dt>Daño</dt>
+            <dd>@Model.cDescdano</dd>
+            <dt>Machover</dt>
+            <dd>@(@Model.bMachover == true ? "Si" : "No")</dd>
+            <dt>Figura</dt>
+            <dd>@(@Model.bFigura == true ? "Si" : "No")</dd>
+            <dt>Merril</dt>
+            <dd>@(@Model.bMerril == true ? "Si" : "No")</dd>
+            <dt>Mmpi</dt>
+            <dd>@(@Model.bMmpi == true ? "Si" : "No")</dd>
+            <dt>Autobiografia</dt>
+            <dd>@(@Model.bAutobiografia == true ? "Si" : "No")</dd>
+            <dt>CI</dt>
+            <dd>@Model.cCi</dd>
+            <dt>Trayectoria laboral</dt>
+            <dd>@Model.cLaboralpsi</dd>
+            <dt>Fortalezas</dt>
+            <dd>@Model.cFortalezas</dd>
+            <dt>Riesgos</dt>
+            <dd>@Model.cRiesgos</dd>
+            <dt>Recomendaciones</dt>
+            <dd>@Model.cRecomendaciones</dd>
+            <dt>Sintesis Técnica</dt>
+            <dd>@Model.cDiagnostico</dd>
+            <dt>Resultado</dt>
+            <dd>@Model.cResultado</dd>
+            <dt>Concluido</dt>
+            <dd>@(@Model.bConcluido == true ? "Si" : "No")</dd>
+            <dt>Fecha Evaluacion</dt>
+            <dd>@Model.fecha_evaluacion</dd>
+            <dt>Clave Psicologo</dt>
+            <dd>@Model.clave_psicologo</dd>
+            <dt>Fecha Modificacion</dt>
+            <dd>@Model.fecha_modifica</dd>
+            <dt>Psicologo Modifica</dt>
+            <dd>@Model.clave_psicologo_mod</dd>
+            <dt>Lugar Nacimiento</dt>
+            <dd>@Model.cLugarnac</dd>
+            <dt>Grado</dt>
+            <dd>@Model.cGrado</dd>
+            <dt>Escolaridad</dt>
+            <dd>@Model.cEscolaridad</dd>
+            <dt>Cleaver</dt>
+            <dd>@(@Model.bCleaver == true ? "Si" : "No")</dd>
+            <dt>Test</dt>
+            <dd>@(@Model.bTest == true ? "Si" : "No")</dd>
+            <dt>Raven</dt>
+            <dd>@(@Model.bRaven == true ? "Si" : "No")</dd>
+            <dt>Beta</dt>
+            <dd>@(@Model.bBeta == true ? "Si" : "No")</dd>
+            <dt>Fecha Evaluacion</dt>
+            <dd>@Model.fEvalpsi</dd>
+            <dt>Lusher</dt>
+            <dd>@(@Model.bLuscher == true ? "Si" : "No")</dd>
+            <dt>Htp</dt>
+            <dd>@(@Model.bHtp == true ? "Si" : "No")</dd>
+            <dt>Sacks</dt>
+            <dd>@(@Model.bSacks == true ? "Si" : "No")</dd>
+            <dt>16fp</dt>
+            <dd>@(@Model.b16fp == true ? "Si" : "No")</dd>
+            <dt>Beta III</dt>
+            <dd>@(@Model.bBetaiiifr == true ? "Si" : "No")</dd>
+            <dt>Liderazgo</dt>
+            <dd>@(@Model.bLiderazgo == true ? "Si" : "No")</dd>
+            <dt>Planeacion</dt>
+            <dd>@(@Model.bPlaneacion == true ? "Si" : "No")</dd>
+            <dt>Decisiones</dt>
+            <dd>@(@Model.bDecisiones == true ? "Si" : "No")</dd>
+            <dt>Conflictos</dt>
+            <dd>@(@Model.bconflictos == true ? "Si" : "No")</dd>
+            <dt>Atención</dt>
+            <dd>@(@Model.bAtencion == true ? "Si" : "No")</dd>
+            <dt>Adaptabilidad</dt>
+            <dd>@(@Model.bAdaptabilidad == true ? "Si" : "No")</dd>
+            <dt>Vocación</dt>
+            <dd>@(@Model.bVocacion == true ? "Si" : "No")</dd>
+            <dt>Capacidad</dt>
+            <dd>@(@Model.bCapacidad == true ? "Si" : "No")</dd>
+            <dt>Observaciones</dt>
+            <dd>@(@Model.bObservaciones == true ? "Si" : "No")</dd>
+            <dt>Análisis</dt>
+            <dd>@(@Model.bAnalisis == true ? "Si" : "No")</dd>
+            <dt>Habilidades</dt>
+            <dd>@(@Model.bHabilidades == true ? "Si" : "No")</dd>
+            <dt>Trabajo</dt>
+            <dd>@(@Model.bTrabajo == true ? "Si" : "No")</dd>
+            <dt>Orientación</dt>
+            <dd>@(@Model.bOrientacion == true ? "Si" : "No")</dd>
+            <dt>Integridad</dt>
+            <dd>@(@Model.bIntegridad == true ? "Si" : "No")</dd>
+            <dt>Supervisor</dt>
+            <dd>@Model.idSupPsi</dd>
+            <dt>Juicio</dt>
+            <dd>@Model.cmbJuicio2</dd>
+            <dt>Control Impulsos</dt>
+            <dd>@Model.cmbControlimpulsos</dd>
+            <dt>Apego a Normal</dt>
+            <dd>@Model.cmbApegonormas</dd>
+            <dt>Tolerancia</dt>
+            <dd>@Model.cmbToleranciapresion</dd>
+            <dt>Estabilidad emocional</dt>
+            <dd>@Model.cmbEstabilidademocional</dd>
+            <dt>Alteraciones</dt>
+            <dd>@Model.cmbAlteraciones</dd>
+            <dt>Competencias</dt>
+            <dd>@Model.cmbCompetencias</dd>
+            <dt>Autoestima</dt>
+            <dd>@Model.cAutoestima</dd>
+            <dt>Emociones</dt>
+            <dd>@Model.cEmociones</dd>
+            <dt>Relaciones</dt>
+            <dd>@Model.cRelaciones</dd>
+            <dt>Competencia</dt>
+            <dd>@Model.cCompetencia</dd>
+        </dl>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Regresar a la Lista", "IndexEvaluacionSupervisor")
+</div>

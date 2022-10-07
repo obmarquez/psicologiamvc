@@ -1,0 +1,1063 @@
+﻿@model psicologiamvc.Models.Evaluacion
+
+@{
+    ViewBag.Title = "EditarPsi";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken();
+
+    <div class="gray-bg form-horizontal">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Detalle de la Evaluación <small><bold>(@ViewBag.evaluadillo)</bold></small></h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    <div class="tabs-container">
+
+                        <ul class="nav nav-tabs">
+
+                            <li class="active"><a data-toggle="tab" href="#tabObservacion"> Observaciones</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabCriterios"> Criterios de Evaluacion</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabDatos"> Datos Generales</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabTrayectoria"> Trayectoria - Instrumentos</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabPersonalidad"> Personalidad</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabReferencias"> Referencias</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            @*observaciones*@
+                            <div id="tabObservacion" class="tab-pane active">
+
+                                @Html.Hidden("idObservacionPendiente")
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+
+                                        <input id="OBSERVA" name="OBSERVA" type="button" class="btn btn-danger demo2" value="Nueva Observación" onclick="capturaObservacion(idhistorico)" />
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="table-responsive">
+
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+                                                <thead>
+
+                                                    <tr>
+
+                                                        <th>ID</th>
+
+                                                        <th>Area</th>
+
+                                                        <th>Observación Pública</th>
+
+                                                        <th>Fecha Registro</th>
+
+                                                        <th>Recomendacion</th>
+
+                                                        <th>Por Responder</th>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var obs in ViewData["obser"] as IEnumerable<psicologiamvc.Models.Consultas>)
+                                                    {
+                                                        <tr>
+
+                                                            <td>@obs.idO</td>
+
+                                                            <td>@obs.departamento</td>
+
+                                                            <td>@obs.observacionpublica</td>
+
+                                                            <td>@obs.fecha</td>
+
+                                                            <td>@obs.recomendacion</td>
+
+                                                            <td>
+                                                                @foreach (var pend in ViewData["obserPendiente"] as IEnumerable<psicologiamvc.Models.Observaciones>)
+                                                                {
+                                                                    @*@pend.tt*@
+                                                                    if (@obs.recomendacion == "")
+                                                                    {
+                                                                        <input id="OBSERVARES" name="OBSERVARES" type="button" class="btn btn-success demo2" value="Responder" onclick="capturaObservacionRespuesta(@obs.idO)" />
+                                                                    }
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="table-responsive">
+
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+                                                <thead>
+
+                                                    <tr>
+
+                                                        <th>Fecha</th>
+
+                                                        <th>Observacion Custodia</th>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var obsCustodia in ViewData["observaCust"] as IEnumerable<psicologiamvc.Models.Consultas>)
+                                                    {
+                                                        <tr>
+
+                                                            <td>@obsCustodia.fechaCus</td>
+
+                                                            <td>@obsCustodia.observacionCus</td>
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @*observaciones Custodia*@
+                            @*<div id="tabObservacionCustodia" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="table-responsive">
+
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+                                                <thead>
+
+                                                    <tr>
+
+                                                        <th>Fecha</th>
+
+                                                        <th>Observacion Custodia</th>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var obsCustodia in ViewData["observaCust"] as IEnumerable<psicologiamvc.Models.Consultas>)
+                                                    {
+                                                        <tr>
+
+                                                            <td>@obsCustodia.fechaCus</td>
+
+                                                            <td>@obsCustodia.observacionCus</td>
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>*@
+
+                            @*Criterios de evaluacion*@
+                            <div id="tabCriterios" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="ibox float-e-margins">
+
+                                        <div class="ibox-title">
+
+                                            <h5>Competencias para el cargo</h5>
+
+                                            <div class="ibox-tools">
+
+                                                <a class="collapse-link">
+
+                                                    <i class="fa fa-chevron-up"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ibox-content">
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Competencia para el cargo</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.DropDownListFor(model => model.cCompetencia, ViewData["criter"] as SelectList, new { @id = "cCompetencia", @class = "form-control" })
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="ibox float-e-margins">
+
+                                        <div class="ibox-title">
+
+                                            <h5>Competencias básicas para el puesto</h5>
+
+                                            <div class="ibox-tools">
+
+                                                <a class="collapse-link">
+
+                                                    <i class="fa fa-chevron-up"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ibox-content">
+
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+
+                                                    <h4>Criterios Mayores</h4>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bJuicio, new { @class = "i-checks" }) <label class="control-label"> Juicio (Criterio 1)</label></div>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bAutoestima, new { @class = "i-checks" }) <label class="control-label"> Autoestima (Criterio 2)</label></div>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bManejo, new { @class = "i-checks" }) <label class="control-label"> Manejo de emociones (Criterio 3)</label></div>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bAlteraciones, new { @class = "i-checks" }) <label class="control-label"> Alteraciones en la percepción y el pensamiento (Criterio 4)</label></div>
+
+                                                </div>
+
+                                                <div class="col-lg-6">
+
+                                                    <h4>Criterios Menores</h4>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bApego, new { @class = "i-checks" }) <label class="control-label"> Apego a normas (Criterio A)</label></div>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bTolerancia, new { @class = "i-checks" }) <label class="control-label"> Tolerancia al estres (Criterio B)</label></div>
+
+                                                    <div>@Html.CheckBoxFor(model => model.bRelaciones, new { @class = "i-checks" }) <label class="control-label"> Relaciones interpersonales (Criterio C)</label></div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @*datos*@
+                            <div id="tabDatos" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="ibox float-e-margins">
+
+                                        <div class="ibox-title">
+
+                                            <h5>Datos Generales</h5>
+
+                                            <div class="ibox-tools">
+
+                                                <a class="collapse-link">
+
+                                                    <i class="fa fa-chevron-up"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ibox-content">
+
+                                            <div class="form-group" id="data_1">
+
+                                                <label class="col-sm-2 control-label">Otra fecha Evaluacion</label>
+
+                                                <div class="input-group date col-sm-4">
+
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>@Html.TextBoxFor(model => model.fEvalpsi, new { @class = "form-control" })
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.TextBoxFor(model => model.cLugarnac, new { @class = "form-control", placeholder = "Ingrese el lugar de Nacimiento" })
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Escolaridad</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.TextBoxFor(model => model.cEscolaridad, new { @class = "form-control", placeholder = "Ingrese la Escolaridad" })
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Grado</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.DropDownListFor(model => model.cGrado, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Básico", text = "Básico" },
+                                                            new { value = "Medio", text = "Medio" },
+                                                            new { value = "Superior", text = "Superior" },
+                                                            new { value = "Posgrado", text = "Posgrado" }
+                                                        }, "value", "text", 0), new { @id = "cGrado", @class = "form-control" })
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @*trayectorias*@
+                            <div id="tabTrayectoria" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="ibox float-e-margins">
+
+                                        <div class="ibox-title">
+
+                                            <h5>Trayectoria Laboral e Instrumentos de Diagnóstico</h5>
+
+                                            <div class="ibox-tools">
+
+                                                <a class="collapse-link">
+
+                                                    <i class="fa fa-chevron-up"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ibox-content">
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Trayectoria</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.TextAreaFor(model => model.cLaboralpsi, new { @class = "form-control", rows = 7 })
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <div class="row">
+
+                                                    <div class="col-lg-6">
+
+                                                        <div>@Html.CheckBoxFor(model => model.bMachover, new { @class = "i-checks" }) <label class="control-label"> Machover</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bFigura, new { @class = "i-checks" }) <label class="control-label"> Figura bajo la lluvia</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bMerril, new { @class = "i-checks" }) <label class="control-label"> Terman Merril</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bMmpi, new { @class = "i-checks" }) <label class="control-label"> MMPI-2</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bMmpi2rf, new { @class = "i-checks" }) <label class="control-label"> MMPI-2RF</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bAutobiografia, new { @class = "i-checks" }) <label class="control-label"> Autobiografía</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bCleaver, new { @class = "i-checks" }) <label class="control-label"> CLEAVER</label></div>
+
+                                                        @*<div>@Html.CheckBoxFor(model => model.bLuscher, new { @class = "i-checks" }) <label class="control-label"> Test de Lusher</label></div>*@
+
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+
+                                                        <div>@Html.CheckBoxFor(model => model.bTest, new { @class = "i-checks" }) <label class="control-label"> Apercepción temática</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bRaven, new { @class = "i-checks" }) <label class="control-label"> RAVEN</label></div>
+
+                                                        @*<div>@Html.CheckBoxFor(model => model.bBeta, new { @class = "i-checks" }) <label class="control-label"> BETA II-R</label></div>*@
+
+                                                        <div>@Html.CheckBoxFor(model => model.bHtp, new { @class = "i-checks" }) <label class="control-label"> HTP</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bSacks, new { @class = "i-checks" }) <label class="control-label"> SACKS</label></div>
+
+                                                        @*<div>@Html.CheckBoxFor(model => model.b16fp, new { @class = "i-checks" }) <label class="control-label"> 16 FP</label></div>*@
+
+                                                        <div>@Html.CheckBoxFor(model => model.bBetaiiifr, new { @class = "i-checks" }) <label class="control-label"> BETA III-R</label></div>
+
+                                                        <div>@Html.CheckBoxFor(model => model.bMoca, new { @class = "i-checks" }) <label class="control-label"> MOCA</label></div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">Coeficiente Intelectual</label>
+
+                                                <div class="col-sm-10">
+
+                                                    @Html.DropDownListFor(model => model.cCi, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Superior", text = "Superior" },
+                                                            new { value = "Promedio alto", text = "Promedio alto" },
+                                                            new { value = "Promedio", text = "Promedio" },
+                                                            new { value = "Promedio bajo", text = "Promedio bajo" },
+                                                            new { value = "Bajo", text = "Bajo" }
+                                                        }, "value", "text", 0), new { @id = "cCi", @class = "form-control" })
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @*personalidad*@
+                            <div id="tabPersonalidad" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                            <div class="form-group">
+
+                                                <div>
+                                                    <i class="fa fa-cogs"></i> Fortalezas - Factores de Riesgo <small><strong>Max. 6,000 caracteres - (<span id="longForRie"></span>)</strong></small>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    @Html.TextAreaFor(model => model.fortaleza_riesgo, new { @class = "form-control", rows = 10 })
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                            <div class="form-group">
+
+                                                <div>
+                                                    <i class="fa fa-cogs"></i> Síntesis Técnica <small><strong>Max. 4,000 caracteres - (<span id="longSintesis"></span>)</strong></small>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    @Html.TextAreaFor(model => model.cDiagnostico, new { @class = "form-control", rows = 10 })
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                            <div class="form-group">
+
+                                                <div>
+                                                    <i class="fa fa-cogs"></i> Recomendaciones <small><strong>Max. 1,500 caracteres - (<span id="longRecomendacion"></span>)</strong></small>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    @Html.TextAreaFor(model => model.cRecomendaciones, new { @class = "form-control", rows = 10 })
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                            <div class="form-group">
+
+                                                <div>
+                                                    <i class="fa fa-cogs"></i> Notas <small><strong>Max. 1,000 caracteres - (<span id="longNotas"></span>)</strong></small>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    @Html.TextAreaFor(model => model.notas, new { @class = "form-control", rows = 10 })
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        @Html.HiddenFor(model => model.idhistorico, new { id = "idhistorico", Value = ViewBag.sIdH })
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="col-sm-2 control-label">Resutlado</label>
+
+                                        <div class="col-sm-10">
+
+                                            @Html.DropDownListFor(model => model.cResultado, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Recomendable", text = "Recomendable" },
+                                                            new { value = "No recomendable", text = "No recomendable" },
+                                                            new { value = "Recomendable con observaciones", text = "Recomendable con observaciones" },
+                                                            new { value = "Aprobado", text = "Aprobado" },
+                                                            new { value = "No aprobado", text = "No aprobado" },
+                                                            new { value = "Aprobado con restricciones", text = "Aprobado con restricciones" },
+                                                            new { value = "Aprobado con seguimiento", text = "Aprobado con seguimiento" },
+                                                            new { value = "Sin diagnóstico", text = "Sin diagnóstico" },
+                                                            new { value = "No presento", text = "No presentó" },
+                                                            new { value = "Riesgo bajo", text = "Riesgo bajo" },
+                                                            new { value = "Riesgo medio", text = "Riesgo medio" },
+                                                            new { value = "Riesgo alto", text = "Riesgo alto" },
+                                                            new { value = "No cumple con el perfil", text = "No cumple con el perfil" }
+                                                        }, "value", "text", 0), new { @id = "cResultado", @class = "form-control" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="col-sm-2 control-label">Supervisor</label>
+
+                                        <div class="col-sm-10">
+
+                                            @Html.DropDownListFor(model => model.idSupPsi, ViewData["super"] as SelectList, new { @id = "idSupPsi", @class = "form-control" })
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="col-sm-2 control-label"></label>
+
+                                        <div class="col-sm-10">
+
+                                            <div>@Html.CheckBoxFor(model => model.bConcluido, new { @class = "i-checks" }) <label class="control-label"> Evaluación concluida</label></div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+
+                                        <div class="col-sm-4 col-sm-offset-2">
+
+                                            @*<button class="btn btn-primary mensaje" type="submit">Guardar Evaluacion</button>*@
+                                            @*<button type="button" class="btn btn-primary" onclick="updateEvaluacionPsi();">Editar Evaluacion</button>*@
+                                            <button type="button" class="btn btn-primary" onclick="getObservacionesXcontestar(@ViewBag.sIdH);">Editar Evaluacion</button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            @*Referencias*@
+                            <div id="tabReferencias" class="tab-pane">
+
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="table-responsive">
+
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+                                                <thead>
+
+                                                    <tr>
+
+                                                        <th>Fecha</th>
+
+                                                        <th>Referencia</th>
+
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var referencias in ViewData["ultmasReferencia"] as IEnumerable<psicologiamvc.Models.Evaluacion>)
+                                                    {
+
+                                                        <tr>
+
+                                                            <td>@referencias.fecha</td>
+
+                                                            <td>@referencias.cDiagnostico</td>
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<div class="modal inmodal" id="modalObservacion" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content animated bounceInRight">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <i class="fa fa-address-card modal-icon"></i>
+
+                <h4 class="modal-title">Nueva Observación Pública</h4>
+
+                <small class="font-bold">Captura de Información</small>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label>Observación</label>
+
+                    @Html.TextArea("observacion", new { @id = "observacion", @class = "form-control", rows = 4 })
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                @Html.Hidden("idhNuevaObservacion")
+
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+
+                <button type="button" class="btn btn-primary" onclick="grabarNuevaObservacion()">Grabar Observación Pública</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal inmodal" id="modalObservacionRespuesta" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content animated bounceInRight">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <i class="fa fa-address-card modal-icon"></i>
+
+                <h4 class="modal-title">Respuesta a observaciones públicas</h4>
+
+                <small class="font-bold">Captura de Información</small>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label>Observación</label>
+
+                    @Html.TextArea("observacionForanea", new { @id = "observacionForanea", @class = "form-control", rows = 4, @readonly = "readonly" })
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Respuesta</label>
+
+                    @Html.TextArea("respuesta", new { @id = "respuesta", @class = "form-control", rows = 4 })
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+
+                <button type="button" class="btn btn-primary" onclick="responderObservacion()">Grabar Observación Pública</button>
+                @*<button type="button" class="btn btn-primary" onclick="redGrabar();">Grabar Observación Pública</button>*@
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+    @*css*@
+    <link href="~/Content/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    @*js*@
+    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $("#longForRie").text($("#fortaleza_riesgo").val().length);
+            $("#longSintesis").text($("#cDiagnostico").val().length);
+            $("#longRecomendacion").text($("#cRecomendaciones").val().length);
+            $("#longNotas").text($("#notas").val().length);
+
+            $("#fortaleza_riesgo").keyup(function (event) {
+                $("#longForRie").text($("#fortaleza_riesgo").val().length);
+            });
+
+            $("#cDiagnostico").keyup(function (event) {
+                $("#longSintesis").text($("#cDiagnostico").val().length);
+            });
+
+            $("#cRecomendaciones").keyup(function (event) {
+                $("#longRecomendacion").text($("#cRecomendaciones").val().length);
+            });
+
+            $("#notas").keyup(function (event) {
+                $("#longNotas").text($("#notas").val().length);
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        function limpiarRespuesta() {
+            $('#respuesta').val('');
+        }
+
+        function capturaObservacion(idhistorico) {
+            $('#idhNuevaObservacion').val(idhistorico.value);
+
+            //alert(idhistorico.value);
+
+            $('#modalObservacion').modal('show');
+        }
+
+        function capturaObservacionRespuesta(idObsPend) {
+
+            limpiarRespuesta();
+
+            $('#idObservacionPendiente').val(idObsPend);
+
+            //alert(idObsPend);
+
+            $('#modalObservacionRespuesta').modal('show');
+
+            getObservacionPendiente(idObsPend);
+        }
+
+        function getObservacionPendiente(idObsPendiente) {
+            //var _idObsPendiente = idObsPendiente;
+
+            var observaciones = { id: idObsPendiente };
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: "{observaciones:" + JSON.stringify(observaciones) + "}",
+                url:"@Url.Action("GetDataObservacionPendiente", "Observacion")",
+                success: function (data) {
+                    $("#observacionForanea").val(data.observacionpublica);
+                },
+                error: function (result) {
+                    alert("Algo se envio mal de observaciones");
+                }
+            });
+        }
+
+
+        //detectar cuantas observaciones faltan SI FALTA AQUI SE VERIFICARA
+        function getObservacionesXcontestar(idhistorico) {
+            //alert("IDH a evaluar si faltan observaciones por responder " + idhistorico);
+
+            var observaciones = { sIdH: idhistorico };
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: "{observaciones:" + JSON.stringify(observaciones) + "}",
+                url:"@Url.Action("GetPendRes", "Observacion")",
+                success: function (data) {
+                    //$("#observacionForanea").val(data.observacionpublica);
+                    //alert("Total por responder = " + data.tt);
+                    if (data.tt > 0) {
+                        //alert("Falta responder");
+                        swal({
+                            title: "Observaciones",
+                            text: "Debe responder observaciones",
+                            type: "warning"
+                        });
+                    }
+                    else {
+                        updateEvaluacionPsi();
+                    }
+                    //return data.tt;
+                },
+                error: function (result) {
+                    alert("Algo se envio mal de observaciones");
+                }
+            });
+
+        }
+
+        function grabarNuevaObservacion() {
+
+            var _idhNuevaObservacion = $('#idhNuevaObservacion').val();
+            var _observacion = $('#observacion').val();
+            //alert('IdH: ' + _idhNuevaObservacion + ' Observacion: ' + _observacion);
+
+            var url = "@Url.Action("js_agrega_observacion", "Observacion")";
+            var data = { p_idHistorico: _idhNuevaObservacion, p_observacionpublica: _observacion };
+            $.post(url, data).done(function (data) {
+                if (data == "Ok") {
+                    $('#modalObservacion').modal('hide');
+                    swal({
+                        title: "Observación Agregada Satisfactoeriamente",
+                        text: "Click para continuar y F5 para actualizar",
+                        type: "success"
+                    });
+                }
+            }).fail(manejarErrorAjax);
+        }
+
+        function responderObservacion() {
+
+            var _idObservacionResponder = $('#idObservacionPendiente').val();
+            var _respuesta = $('#respuesta').val();
+
+            //alert("idObs " + _idObservacionResponder + ' Respuesta '+ _respuesta);
+
+            var url = "@Url.Action("js_responder_observacion", "Observacion")";
+            var data = { p_idObs: _idObservacionResponder, p_respuesta: _respuesta };
+            $.post(url, data).done(function (data) {
+                if (data == "Ok") {
+                    $('#modalObservacionRespuesta').modal('hide');
+                    swal({
+                        title: "Respuesta Agregada Satisfactoeriamente",
+                        text: "Click para continuar y F5 para actualizar",
+                        type: "success"
+                    });
+                }
+            }).fail(manejarErrorAjax);
+        }
+
+        function updateEvaluacionPsi() {
+            var _idh = $("#idhistorico").val();
+            //var _cBender = $("#cBender").val();
+            //var _cDescdano = $("#cDescdano").val();
+            var _cDiagnostico = $("#cDiagnostico").val();
+            var _bMachover = $("#bMachover").prop('checked') ? true : false;
+            var _bFigura = $("#bFigura").prop('checked') ? true : false;
+            var _bMerril = $("#bMerril").prop('checked') ? true : false;
+            var _bMmpi = $("#bMmpi").prop('checked') ? true : false;
+            var _bAutobiografia = $("#bAutobiografia").prop('checked') ? true : false;
+            var _cCi = $("#cCi").val();
+            var _cLaboralpsi = $("#cLaboralpsi").val();
+            var _cRecomendaciones = $("#cRecomendaciones").val();
+            var _cResultado = $("#cResultado").val();
+            var _bConcluido = $("#bConcluido").prop('checked') ? true : false;
+            var _cLugarnac = $("#cLugarnac").val();
+            var _cGrado = $("#cGrado").val();
+            var _cEscolaridad = $("#cEscolaridad").val();
+            var _bCleaver = $("#bCleaver").prop('checked') ? true : false;
+            var _bTest = $("#bTest").prop('checked') ? true : false;
+            var _bRaven = $("#bRaven").prop('checked') ? true : false;
+            //var _bBeta = $("#bBeta").prop('checked') ? true : false;
+            var _fEvalpsi = $("#fEvalpsi").val();
+            //var _bLuscher = $("#bLuscher").prop('checked') ? true : false;
+            var _idSupPsi = $("#idSupPsi").val();
+            var _bHtp = $("#bHtp").prop('checked') ? true : false;
+            var _bSacks = $("#bSacks").prop('checked') ? true : false;
+            //var _b16fp = $("#b16fp").prop('checked') ? true : false;
+            var _bBetaiiifr = $("#bBetaiiifr").prop('checked') ? true : false;
+            var _cCompetencia = $("#cCompetencia").val();
+            var _bJuicio = $("#bJuicio").prop('checked') ? true : false;
+            var _bAutoestima = $("#bAutoestima").prop('checked') ? true : false;
+            var _bManejo = $("#bManejo").prop('checked') ? true : false;
+            var _bAlteraciones = $("#bAlteraciones").prop('checked') ? true : false;
+            var _bApego = $("#bApego").prop('checked') ? true : false;
+            var _bTolerancia = $("#bTolerancia").prop('checked') ? true : false;
+            var _bRelaciones = $("#bRelaciones").prop('checked') ? true : false;
+            var _fortaleza_riesgo = $("#fortaleza_riesgo").val();
+            var _notas = $("#notas").val();
+            var _accion = 2;
+            var _bMoca = $("#bMoca").prop('checked') ? true : false;
+            var _bMmpi2rf = $("#bMmpi2rf").prop('checked') ? true : false;
+
+            if (_cLugarnac == "" || _cEscolaridad == "" || _cLaboralpsi == "" || _fortaleza_riesgo == "" || _cDiagnostico == "" || _cRecomendaciones == "" || _notas == "") {
+                swal({
+                    title: "Existen campos por guardar",
+                    text: "Verifique",
+                    type: "success"
+                });
+            }
+            else {
+                swal({
+                    title: "Para Supervisor?",
+                    text: "Debe marcar la casilla Evaluación concluida",
+                    type: "warning",
+                    /*showCancelButton: true,*/
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Enterado",
+                    closeOnConfirm: true
+                }, function () {
+                    /*swal("Enterado", "Your imaginary file has been deleted.", "success");*/
+
+                    var url = "@Url.Action("AddUpdInvestigacionPsicologica", "EvaluacionPsi")";
+                    var data = { idhistorico: _idh, cDiagnostico: _cDiagnostico, bMachover: _bMachover, bFigura: _bFigura, bMerril: _bMerril, bMmpi: _bMmpi, bAutobiografia: _bAutobiografia, cCi: _cCi, cLaboralpsi: _cLaboralpsi, cRecomendaciones: _cRecomendaciones, cResultado: _cResultado, bConcluido: _bConcluido, cLugarnac: _cLugarnac, cGrado: _cGrado, cEscolaridad: _cEscolaridad, bCleaver: _bCleaver, bTest: _bTest, bRaven: _bRaven, fEvalpsi: _fEvalpsi, idSupPsi: _idSupPsi, bHtp: _bHtp, bSacks: _bSacks, bBetaiiifr: _bBetaiiifr, cCompetencia: _cCompetencia, bLiderazgo: _bJuicio, bPlaneacion: _bAutoestima, bDecisiones: _bManejo, bconflictos: _bAlteraciones, bAtencion: _bApego, bAdaptabilidad: _bTolerancia, bVocacion: _bRelaciones, fortaleza_riesgo: _fortaleza_riesgo, notas: _notas, accion: _accion, bMoca: _bMoca, bMmpi2rf: _bMmpi2rf };
+                    //var data = { idhistorico: _idh, cDiagnostico: _cDiagnostico, bMachover: _bMachover, bFigura: _bFigura, bMerril: _bMerril, bMmpi: _bMmpi, bAutobiografia: _bAutobiografia, cCi: _cCi, cLaboralpsi: _cLaboralpsi, cRecomendaciones: _cRecomendaciones, cResultado: _cResultado, bConcluido: _bConcluido, cLugarnac: _cLugarnac, cGrado: _cGrado, cEscolaridad: _cEscolaridad, bCleaver: _bCleaver, bTest: _bTest, bRaven: _bRaven, bBeta: _bBeta, fEvalpsi: _fEvalpsi, bLuscher: _bLuscher, idSupPsi: _idSupPsi, bHtp: _bHtp, bSacks: _bSacks, b16fp: _b16fp, bBetaiiifr: _bBetaiiifr, cCompetencia: _cCompetencia, bLiderazgo: _bJuicio, bPlaneacion: _bAutoestima, bDecisiones: _bManejo, bconflictos: _bAlteraciones, bAtencion: _bApego, bAdaptabilidad: _bTolerancia, bVocacion: _bRelaciones, fortaleza_riesgo: _fortaleza_riesgo, notas: _notas, accion: _accion, bMoca: _bMoca, bMmpi2rf: _bMmpi2rf };
+
+                    var reenvioPsi = '@Url.Action("printInvestigacionPsicologica", "Impresiones")' + '?sIdH=' + _idh;
+
+                    $.post(url, data).done(function (data) {
+                        if (data == "Ok") {
+
+                            window.open(reenvioPsi);
+
+                            //location.href = '@Url.Action("PsiExpEditar", "Message")';
+
+                            location.href = '@Url.Action("PsiExpEditar", "Message", new { sIdh = ViewBag.sIdH })';
+                            }
+                        }).fail(manejarErrorAjax);
+                });
+            }
+        }
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+
+    </script>
+}

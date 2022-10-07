@@ -1,0 +1,6 @@
+
+agregue este estilo en Content/css/plugins/clockPicker/clockPicker.css para poder el reloj en la venta modal
+
+.clockpicker-popover {
+z-index: 999999 !important;
+}

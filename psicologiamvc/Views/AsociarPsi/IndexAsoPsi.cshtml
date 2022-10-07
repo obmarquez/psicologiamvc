@@ -1,0 +1,300 @@
+﻿@model IEnumerable<psicologiamvc.Models.Consultas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("IndexAsoPsi", "AsociarPsi", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Asociacion de Evaluados
+        </div>
+        <div class="panel-body">
+            <div class="ibox-content">
+                <div class="form-group" id="data_1">
+                    <label class="font-normal">Seleccione una fecha o ingrese una fecha válida</label>
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" name="fecha" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th>IdH</th>
+                    <th>IdE</th>
+                    <th>Evaluado</th>
+                    <th>Evaluacion</th>
+                    <th>Fecha</th>
+                    <th>Dependencia</th>
+                    <th>Psicologo</th>
+                    <th>Dif</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @*@Html.HiddenFor(modelItem => item.curp)*@
+                    <tr>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.IdH)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.IdE)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.evaluado)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.evaluacion)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.dependencia)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.UsuarioSise)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @if (item.diferenciada == "Si")
+                            {
+                                <span class="badge badge-danger">Sí</span>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.diferenciada)
+                            }
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @if (Convert.ToInt32(@item.estatus) < 2)
+                            {
+                                @Html.Hidden("IdHN")
+                                @*@Html.Hidden("fechita")*@
+                                @*<input id="ASO" name="ASO" type="button" class="btn btn-primary demo2" value="ASOCIAR" onclick="editar(@item.IdH)" />*@
+                                <button class="btn btn-outline btn-primary dim" type="button" onclick="editar(@item.IdH)"><i class="fa fa-users"></i></button>
+                            }
+                            else
+                            {
+                                <p>Evaluacion iniciada</p>
+                            }
+                            @if (item.UsuarioSise != null)
+                            {
+                                <button class="btn btn-outline btn-danger dim" type="button" onclick="desaociar_a(@item.IdH)"><i class="fa fa-users"></i></button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Asociación de Psicologo</h4>
+                    <small class="font-bold">Para expedientes que aún no han sido iniciados</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Elija un psicologo</label>
+                        @Html.DropDownList("idpsi", ViewData["psicologos"] as SelectList, new { @id = "idpsi", @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Evaluador</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_historico">
+                                @*<tr>
+                                        <td>17/08/2021</td>
+                                        <td>520 - Yo mero mero</td>
+                                    </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="asociar();">Asociar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="modalDesasociar" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Asociación de Psicologo</h4>
+                    <small class="font-bold">Para expedientes que aún no han sido iniciados</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="desaociar_b();">Desasociar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    @*CSS*@
+    <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    @*JS*@
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Content/js/plugins/dataTables/datatables.min.js"></script>
+    @*<script src="~/Scripts/js-asociar.js"></script>*@
+
+    <script language="javascript">
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $(document).ready(function () {
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+        function editar(idh) {
+
+            $('#IdHN').val(idh);
+
+            //------------------------------------------------------------ MAGE
+
+            $.ajax({
+                type: 'POST',
+                url:"@Url.Action("GetHistoricoEvaluadores", "AsociarPsi")",
+                dataType: 'json',
+                //data: { id: $("#IdEntidadFederativa").val() },
+                //data: { sIdH: idh },
+                data: { sIdH: $('#IdHN').val() },
+                success: function (states) {
+                    $("#tbody_historico").empty();
+                    $.each(states, function (i, state) {
+                        //$("#tbody_historico").append('<option value="' + state.value + '">' + state.text + '</option>');
+                        $("#tbody_historico").append('<tr><td>'+state.alta+'</td><td>'+state.idevaluador+'</td></tr>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Falla al obtener lista.' + ex);
+                }
+            });
+
+            //------------------------------------------------------------ MAGE
+
+            $('#myModal').modal('show');
+        }
+
+        function asociar() {
+            var idh = $("#IdHN").val();
+            var loco = $("#idpsi").val();
+            var sup = "";
+
+            //alert(idh + ' ' + loco);
+
+
+            $.ajaxSetup({ async: true });
+
+            $.post("js_asociar_curp", { p_idHistorico: idh, p_idEvaluador: loco, p_idSupervisor: sup }, function (data) {
+                if (data == "SESION_EXPIRED") { showReiniciarSesion(); }
+                else if (data == "Ok") {
+                    $('#myModal').modal('hide');
+                    swal({
+                        title: "Evaluado Asociado / Actualizado",
+                        text: "F5 Actualizar ventana",
+                        type: "success"
+                    });
+                }
+                else { showMessage("Ocurrio un error, intente de nuevo.", "#msgBandeja", "danger", "warning"); }
+            })
+                .fail(function (result) {
+                    showMessage("Ocurrio un error:" + result.statusText + ", intente de nuevo. ", "#msgBandeja", "danger", "warning");
+                });
+        }
+
+        function desaociar_a(idh) {
+            //alert("El idh a desasociar es:" + idh);
+            $('#IdHN').val(idh);
+
+            $('#modalDesasociar').modal('show');
+        }
+
+        function desaociar_b() {
+            var idh_desaociar = $("#IdHN").val();
+
+            //alert("ID para desasociar en segundo paso " + idh_desaociar);
+
+            $.ajaxSetup({ async: true });
+
+            $.post("js_desasociar", { p_idHistorico: idh_desaociar }, function (data) {
+                if (data == "SESION_EXPIRED") { showReiniciarSesion(); }
+                else if (data == "Ok") {
+                    $('#modalDesasociar').modal('hide');
+                    swal({
+                        title: "Evaluado Desasociado",
+                        text: "F5 Actualizar ventana",
+                        type: "success"
+                    });
+                }
+                else { showMessage("Ocurrio un error, intente de nuevo.", "#msgBandeja", "danger", "warning"); }
+            })
+                .fail(function (result) {
+                    showMessage("Ocurrio un error:" + result.statusText + ", intente de nuevo. ", "#msgBandeja", "danger", "warning");
+                });
+        }
+
+    </script>
+}

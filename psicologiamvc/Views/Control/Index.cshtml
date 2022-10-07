@@ -1,0 +1,434 @@
+﻿@model IEnumerable<psicologiamvc.Models.Controlsupervision>
+
+@{
+    ViewBag.Title = "IndexGraPsiRes";
+}
+
+@using (Html.BeginForm("Index", "Control", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Seleccione un Supervisor
+        </div>
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    @Html.DropDownList("idsupervisor", (IEnumerable<SelectListItem>)ViewData["super"], new { @id = "idsupervisor", @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    <div id="data_1">
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="f1" name="f1" class="form-control" placeholder="Fecha Inicio">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div id="data_1">
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="f2" name="f2" class="form-control" placeholder="Fecha Final">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example">
+                <thead>
+                    <tr>
+                        <th>IdH</th>
+                        <th>Evaluado</th>
+                        <th>Evaluacion</th>
+                        <th>Puesto</th>
+                        <th>Psi</th>
+                        <th>Est</th>
+                        <th>Codigo</th>
+                        <th>Dx Ini</th>
+                        @*<th>F Eval</th>*@
+                        <th>Observacion</th>
+                        <th>F C</th>
+                        <th>F D</th>
+                        <th>F E</th>
+                        <th>Dx2</th>
+                        <th>Acc</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.idHistorico)</td>
+                            <td>@Html.DisplayFor(modelItem => item.evaluado)</td>
+                            <td>@Html.DisplayFor(modelItem => item.evaluacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.puesto)</td>
+                            <td>@Html.DisplayFor(modelItem => item.idpsi)</td>
+                            <td>@Html.DisplayFor(modelItem => item.estatus)</td>
+                            <td>@Html.DisplayFor(modelItem => item.codigoevaluado)</td>
+                            <td>@Html.DisplayFor(modelItem => item.dx1)</td>
+                            @*<td>@Html.DisplayFor(modelItem => item.fEvalpsi)</td>*@
+                            <td>@Html.DisplayFor(modelItem => item.observacion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.fCorreccion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.fDevolucion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.fEntrega)</td>
+                            <td>@Html.DisplayFor(modelItem => item.dx2)</td>
+                            <td>
+                                @*variables ocultas del modal*@
+
+                                @if (item.idh2 == null)
+                                {
+                                    <p>
+                                        <a href="#" class="btn btn-block btn-outline btn-primary btn-xs" onclick="datos(@item.idHistorico)">Add</a>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p>
+                                        @*<a href="#" class="btn btn-block btn-outline btn-primary btn-xs" onclick="datos(@item.idHistorico)">Upd</a>*@
+                                        <a href="#" class="btn btn-block btn-outline btn-primary btn-xs" onclick="actualizar(@item.idHistorico)">Upd</a>
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Control de Supervisión</h3>
+                    <small class="font-bold">de expedientes y entrega a dirección</small>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            @Html.TextArea("observacion", "Ingrese la observación", new { @style = "color:red", @class = "form-control", rows = 3 })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Fecha Correccion</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fCorreccion" name="fCorreccion" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Fecha Devolución</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fDevolucion" name="fDevolucion" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Fecha Entrega</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fEntrega" name="fEntrega" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Dictamen Final </label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="dx2" id="dx2">
+                                    <option value="Seleccione">Seleccione</option>
+                                    <option value="Riesgo alto">Riesgo alto</option>
+                                    <option value="Riesgo medio">Riesgo medio</option>
+                                    <option value="Riesgo bajo">Riesgo bajo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    @*variables ocultas*@
+                    @Html.Hidden("idhControl")
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="grabarControl();">Grabar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title">Actualización de Control de Supervisión</h3>
+                    <small class="font-bold">de expedientes y entrega a dirección</small>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            @Html.TextArea("observacionupd", new { @style = "color:red", @class = "form-control", rows = 3 })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Fecha Correccion</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fCorreccionupd" name="fCorreccionupd" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Fecha Devolución</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fDevolucionupd" name="fDevolucionupd" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Fecha Entrega</label>
+                                    <div id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fEntregaupd" name="fEntregaupd" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Dictamen Final </label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="dx2upd" id="dx2upd">
+                                    <option value="Seleccione">Seleccione</option>
+                                    <option value="Riesgo alto">Riesgo alto</option>
+                                    <option value="Riesgo medio">Riesgo medio</option>
+                                    <option value="Riesgo bajo">Riesgo bajo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    @*variables ocultas*@
+                    @Html.Hidden("idhControlActualizar")
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="actualizarControl();">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    @*-- css --*@
+    <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    @*-- js --*@
+    <script src="~/Content/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $('.dataTables-example').DataTable({
+            pageLength: 25,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy' },
+                { extend: 'csv' },
+                { extend: 'excel', title: 'Control' },
+                { extend: 'pdf', title: 'Control' },
+
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+
+        });
+
+        function datos(idh) {
+
+            limpiar();
+
+            //alert("El IdH es : " + idh);
+            $('#idhControl').val(idh);
+
+            $('#myModal').modal('show');
+        }
+
+        function actualizar(idh) {
+            //alert("El IdH es para actualizar: " + idh);
+            $('#idhControlActualizar').val(idh);
+
+            $('#myModal2').modal('show');
+
+            getDatosactualizar(idh);
+        }
+
+        function getDatosactualizar(idhActualizar) {
+            //alert("Dentro de getdatosactualizar " + idhActualizar);
+            var controlsupervision = { idHistorico: idhActualizar };
+
+            //$.ajax({
+            //    type: "POST",
+            //    contentType: "application/json; charset=utf-8",
+            //    data: "{controlsupervision:" + JSON.stringify(controlsupervision) + "}",
+            //    url: "/Control/GetDatosControl",
+            //    success: function (data) {
+            //        $("#observacionupd").val(data.observacion);
+            //        $("#fCorreccionupd").val(data.fCorreccion);
+            //        $("#fDevolucionupd").val(data.fDevolucion);
+            //        $("#fEntregaupd").val(data.fEntrega);
+            //        $("#dx2upd").val(data.dx2);
+            //    },
+            //    error: function (result) {
+            //        alert("Algo se envio mal de observaciones");
+            //    }
+            //});
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: "{controlsupervision:" + JSON.stringify(controlsupervision) + "}",
+                url:"@Url.Action("GetDatosControl", "Control")",
+                success: function (data) {
+                    $("#observacionupd").val(data.observacion);
+                    $("#fCorreccionupd").val(data.fCorreccion);
+                    $("#fDevolucionupd").val(data.fDevolucion);
+                    $("#fEntregaupd").val(data.fEntrega);
+                    $("#dx2upd").val(data.dx2);
+                },
+                error: function (result) {
+                    alert("Algo se envio mal de observaciones");
+                }
+            });
+        }
+
+        function limpiar() {
+            $('#observacion').val('');
+            $('#dx2').val('Seleccione');
+            $('#fCorreccion').val('');
+            $('#fDevolucion').val('');
+            $('#fEntrega').val('');
+        }
+
+        function grabarControl() {
+            var _idHistorico = $('#idhControl').val();
+            var _observacion = $('#observacion').val();
+            var _fCorreccion = $('#fCorreccion').val();
+            var _fDevolucion = $('#fDevolucion').val();
+            var _dx2 = $('#dx2').val();
+            var _fEntrega = $('#fEntrega').val();
+            var _accion = 1;
+
+            //alert("Idh: " + _idHistorico + " Obs: " + _observacion + " FC: " + _fCorreccion + " FD: " + _fDevolucion + " Dx2: " + _dx2 + " FE: " + _fEntrega + " Acc: " + _accion);
+            var url = "@Url.Action("js_agregar_actualizar_control", "Control")";
+            var data = { p_idHistorico: _idHistorico, p_observacion: _observacion, p_fCorreccion: _fCorreccion, p_fDevolucion: _fDevolucion, p_dx2: _dx2, p_fEntrega: _fEntrega, p_accion: _accion };
+            $.post(url, data).done(function (data) {
+                if (data == "Ok") {
+                    swal({
+                        title: "Control de Supervisión",
+                        text: "Datos agregados Satisfactoriamente, F5 Actualizar",
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function () {
+                            $('#myModal').modal('hide');
+                         @*location.href = '@Url.Action("Index", "Control", new { idsupervisor = "515", f1 = "01/03/2021",  f2 = "31/03/2021" })';*@
+                    });
+
+                }
+            }).fail(manejarErrorAjax);
+        }
+
+        function actualizarControl() {
+            var _idHistorico = $('#idhControlActualizar').val();
+            var _observacion = $('#observacionupd').val();
+            var _fCorreccion = $('#fCorreccionupd').val();
+            var _fDevolucion = $('#fDevolucionupd').val();
+            var _dx2 = $('#dx2upd').val();
+            var _fEntrega = $('#fEntregaupd').val();
+            var _accion = 2;
+
+            //alert("Idh: " + _idHistorico + " Obs: " + _observacion + " FC: " + _fCorreccion + " FD: " + _fDevolucion + " Dx2: " + _dx2 + " FE: " + _fEntrega + " Acc: " + _accion);
+            var url = "@Url.Action("js_agregar_actualizar_control", "Control")";
+            var data = { p_idHistorico: _idHistorico, p_observacion: _observacion, p_fCorreccion: _fCorreccion, p_fDevolucion: _fDevolucion, p_dx2: _dx2, p_fEntrega: _fEntrega, p_accion: _accion };
+            $.post(url, data).done(function (data) {
+                if (data == "Ok") {
+                    swal({
+                        title: "Control de Supervisión",
+                        text: "Datos agregados Satisfactoriamente, F5 Actualizar",
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: true
+                    }, function () {
+                            $('#myModal2').modal('hide');
+                         @*location.href = '@Url.Action("Index", "Control", new { idsupervisor = 515, f1 = 01/03/2021,  f2 = 31/03/2021 })';*@
+                    });
+
+                }
+            }).fail(manejarErrorAjax);
+        }
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+
+    </script>
+
+}

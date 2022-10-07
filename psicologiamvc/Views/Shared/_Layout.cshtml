@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title PSICO - SISE</title>
+    @Styles.Render("~/Content/css/css")
+    @Styles.Render("~/Content/css/plugins/dataTables/dataTables")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />*@
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    @*<link href="http://cdn.datatables.net/colreorder/1.1.1/css/dataTables.colReorder.css" rel="stylesheet" />*@
+
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
+</head>
+<body>
+    @{
+
+        var usuario = (psicologiamvc.Models.Usuarios)Session["usuarioX"];
+        var rol = usuario.Id_Rol;
+
+        //para verlo en mi proyecto
+        //var rutaFoto = "/Content/img/" + @usuario.Id_Usuario.ToString() + ".jpg";
+
+        //para verlo en servidor
+        var rutaFoto = "/fotoUser/" + @usuario.Id_Usuario.ToString() + ".jpg";
+
+    }
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+
+            <div class="sidebar-collapse">
+
+                <ul class="nav metismenu" id="side-menu">
+
+                    <li class="nav-header">
+
+                        <div class="dropdown profile-element">
+
+                            <span>
+                                @*<img alt="image" class="img-circle" src="~/Content/img/profile_small.jpg" />*@
+                                <a href="@Url.Action("inicio", "Home")"><img alt="image" class="img-circle" src="@rutaFoto" /></a>
+                            </span>
+
+                        </div>
+
+                        <div class="logo-element">
+
+                            SS+
+
+                        </div>
+
+                    </li>
+
+                    @if (rol == 5 || rol == 10 || rol == 27)
+                    {
+                        <li>
+                            <a href="@Url.Action("IndexAsoPsi", "AsociarPsi")"><i class="fa fa-pie-chart"></i> <span class="nav-label">Asociar</span>  </a>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 19)
+                    {
+                        <li>
+                            <a href="@Url.Action("IndexEvaluacionPsi", "EvaluacionPsi")"><i class="fa fa-th-large"></i> <span class="nav-label">Evaluación</span>  </a>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 10)
+                    {
+                        <li>
+                            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Supervision</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="@Url.Action("IndexEvaluacionSupervisorPsi", "EvaluacionPsi")">Evaluaciones</a></li>
+                                <li><a href="@Url.Action("Index", "Control")">Control</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 27)
+                    {
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Entrega Custodia</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="@Url.Action("Index", "EntregaPsi")">Entrega</a></li>
+                                <li><a href="@Url.Action("ConcentradoMemos", "EntregaPsi")">Concentrado</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 10 || rol == 27)
+                    {
+                        <li>
+                            <a href="@Url.Action("EntradaDiariaPsi","EvaluacionPsi")"><i class="fa fa-pie-chart"></i> <span class="nav-label">Entrada Diaria</span>  </a>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 10)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "Observacion")"><i class="fa fa-flask"></i> <span class="nav-label">Observaciones Día</span></a>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 10)
+                    {
+                        <li>
+                            <a href="@Url.Action("IndexEstatus", "Estatus")"><i class="fa fa-flask"></i> <span class="nav-label">Regresar Status</span></a>
+                        </li>
+                    }
+
+                    @if (rol == 5 || rol == 10 || rol == 27 || rol == 34)
+                    {
+                        <li><a href="@Url.Action("IndexPsicometria", "Psicometria")"><i class="fa fa-pinterest"></i> <span class="nav-label">Psicometría</span></a></li>
+                        <li><a href="@Url.Action("Indexterman", "Psicometria")"><i class="fa fa-gears"></i> <span class="nav-label">Test Detalle</span></a></li>
+                    }
+
+                    @if (rol == 5 || rol == 10 || rol == 27 || rol == 34)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "AsistenciaPsi")"><i class="fa fa-check-square-o"></i> <span class="nav-label">Asistencia</span></a>
+                        </li>
+                    }
+
+                    <li>
+                        <a href="#"><i class="fa fa-random"></i> <span class="nav-label">Vinculo X Municipio</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="@Url.Action("ConsultasRed_Municipio", "Red")">Municipios</a></li>
+                            <li><a href="@Url.Action("ConsultasRed_Dependencias", "Red")">Dependencias</a></li>
+                            <li><a href="@Url.Action("ConsultasRed_Alias", "Red")">Alias - Referido - Evaluado</a></li>
+                        </ul>
+                    <li>
+
+                    @if (rol == 5 || rol == 10)
+                     {
+                        <li>
+                            <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Consultas Informes</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="@Url.Action("IndexGralPsi", "ConsultasPsi")">General Usuario Pend</a></li>
+                                <li><a href="@Url.Action("IndexConcentradoPsi", "ConsultasPsi")">General Psi Conc</a></li>
+                                <li><a href="@Url.Action("IndexConcentradoSupervisor", "ConsultasPsi")">General Sup Conc</a></li>
+                                <li><a href="@Url.Action("IndexGraPsiRes", "ConsultasPsi")">Grafica Psi - Res</a></li>
+                                <li><a href="@Url.Action("IndexRed", "Red")">Red de Vínculos</a></li>
+                                <li><a href="@Url.Action("IndexCriteriosMyM", "ConsultasPsi")">Criterios Psi</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("ObtenerUsuario", "Usuario")"><i class="fa fa-users"></i> <span class="nav-label">Personal</span></a>
+                        </li>
+                    }
+
+                    </ul>
+
+            </div>
+
+        </nav>
+
+
+        <div id="page-wrapper" class="gray-bg">
+           
+
+            <div class="row border-bottom">
+
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+
+                    <div class="navbar-header">
+
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+
+                    </div>
+
+                    <ul class="nav navbar-top-links navbar-right">
+
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Bienvenido @usuario.NombreCompleto  </span>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("LogOff", "Home")"><i class="fa fa-sign-out"></i> Cerrar Sesión</a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+                        @RenderBody()
+
+                        <hr />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <footer>
+
+                <p>&copy; @DateTime.Now.Year - SISE Psi.</p>
+
+            </footer>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

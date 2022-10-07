@@ -1,0 +1,73 @@
+﻿@model IEnumerable<psicologiamvc.Models.Entrega>
+
+@{
+    ViewBag.Title = "ConcentradoMemos";
+}
+
+<div class="ibox-content">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Numero de Memorándum</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.fecha.ToShortDateString()</td>
+                        <td>@item.cmemo</td>
+                        <td>
+                            <a class="popup btn btn-block btn-outline btn-primary btn-xs" href="../Impresiones/printEntrega?cmemo=@item.cmemo" target="_blank">Ver Entrega</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    @* css *@
+    <link rel="stylesheet" href="~/Content/css/plugins/dataTables/datatables.min.css" />
+
+    @*js*@
+    <script src="~/Content/js/plugins/dataTables/datatables.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+
+                "order": [[1, "desc"]],
+
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy' },
+                    { extend: 'csv' },
+                    { extend: 'excel', title: 'ExampleFile' },
+                    { extend: 'pdf', title: 'ExampleFile' },
+
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,37 @@
+USE [Integral]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_psicologia_seleccionar_evaluacion]    Script Date: 07/08/2020 13:04:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		Oscar Bolaños Marquez
+-- Create date: 31/07/2018
+-- Description:	Seleccionar una evaluacion
+-- =============================================
+ALTER PROCEDURE [dbo].[sp_psicologia_seleccionar_evaluacion]
+	-- Add the parameters for the stored procedure here
+	@idhistorico int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	declare @curp varchar(18)
+	declare @idevaluacion int
+
+	set @curp = dbo.sp_get_curp_idhistorico(@idhistorico)
+	set @idevaluacion = dbo.sp_get_idevaluacion_idhistorico(@idhistorico)
+
+	select idhistorico, curp_evaluado, cBender, cDescdano,cDiagnostico, bMachover, bFigura, bMerril, bMmpi, bAutobiografia, cCi, cLaboralpsi, cRecomendaciones,
+		cResultado, bConcluido, cLugarnac, cGrado, cEscolaridad, bCleaver, bTest, bRaven, bBeta, fEvalpsi, bLuscher, LTRIM(RTRIM(idSupPsi)) idSupPsi, bHtp, bSacks, b16fp, bBetaiiifr,
+		cCompetencia, bJuicio, bAutoestima, bManejo, bAlteraciones, bApego, bTolerancia, bRelaciones, fortaleza_riesgo, notas, bMoca
+	from tPsicologia01 
+	where curp_evaluado = @curp and idhistorico = @idevaluacion
+END
+
+

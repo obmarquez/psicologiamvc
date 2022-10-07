@@ -1,0 +1,103 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox" id="ibox2">
+            <div class="ibox-title">
+                <h5>Entrega de Expedientes a Custodia <small>Selección de evaluados.</small></h5>
+            </div>
+            <div class="ibox-content">
+
+                <div class="sk-spinner sk-spinner-wave">
+                    <div class="sk-rect1"></div>
+                    <div class="sk-rect2"></div>
+                    <div class="sk-rect3"></div>
+                    <div class="sk-rect4"></div>
+                    <div class="sk-rect5"></div>
+                </div>
+
+                <form id="form" action="#" class="wizard-big">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Memorándum</label>
+
+                        <div class="col-sm-10"><input type="text" class="form-control" value="@ViewBag.memo.cmemo" id="cmemo" name="cmemo"></div>
+                    </div>
+
+                    <select class="form-control dual_select" multiple name="duallistbox_demo1[]" size="25">
+                        @foreach (var x in ViewData["aCustodia"] as SelectList)
+                        {
+                            <option value=@x.Value>@x.Text</option>
+                        }
+
+                    </select>
+
+                    <br />
+
+                    <div class="form-group">
+                        <input id="memo" name="memo" type="button" class="btn btn-success demo2" value="Guardar" onclick="obtenerElementos()" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <link href="~/Content/css/plugins/dualListbox/bootstrap-duallistbox.min.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 160
+            });
+
+        });
+
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+
+        function obtenerElementos() {
+
+            $('#ibox2').children('.ibox-content').toggleClass('sk-loading');
+
+            var _cmemo = $('#cmemo').val();
+            var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();
+            var string = demo1.val();
+
+            //alert(_cmemo);
+            //alert(string);
+            //alert(string.length);
+
+            for (x = 0; x < string.length; x++) {
+
+                sleep(150);
+
+                var url = "@Url.Action("AgregaEntrega", "EntregaPsi")";
+                var data = { idhistorico: string[x], nDireccion: 3, cmemo: _cmemo, idevaluacion_poligrafica: 0 };
+                $.post(url, data).done(function (data) {
+
+	                //if (data == "Ok") {
+                 //       alert("Hecho");
+	                //}
+                }).fail(manejarErrorAjax);
+            }
+
+            location.href = '@Url.Action("ConcentradoMemos", "EntregaPsi")';
+
+            //return false;
+        }
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+    </script>
+}

@@ -1,0 +1,475 @@
+﻿@model IEnumerable<psicologiamvc.Models.Consultas>
+
+@{
+    ViewBag.Title = "IndexGraPsiRes";
+}
+
+@using (Html.BeginForm("IndexGraPsiRes", "ConsultasPsi", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Seleccione un Psicologo
+        </div>
+        <div class="panel-body">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    @Html.DropDownList("psicologo", (IEnumerable<SelectListItem>)ViewData["psicologos"], new { @id = "psicologo", @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    <div id="data_1">
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha01" name="fecha01" class="form-control" placeholder = "Fecha Inicio">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div id="data_1">
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha02" name="fecha02" class="form-control" placeholder = "Fecha Final">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        @Html.DropDownList("psicologo", (IEnumerable<SelectListItem>)ViewData["psicologos"], new { @id = "psicologo", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        @Html.TextBox("fecha01", "", new { @class = "form-control", placeholder = "Fecha Inicio" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        @Html.TextBox("fecha02", "", new { @class = "form-control", placeholder = "Fecha Fin" })
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+
+    <div class="row">
+
+        @*<div class="col-lg-6 col-md-6 col-sm-6">
+
+            </div>*@
+
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica por Resultado <small> 2022 </small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="container" style="min-width: 310px; height: 300px; max-width: 600px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica de Evaluaciones por Mes <small> 2022 </small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="container_b" style="min-width: 310px; height: 300px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Grafica de Evaluaciones por Diagnóstico por Mes <small> 2022 </small></h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="container_c" style="min-width: 310px; height: 300px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*</div>*@
+
+    @section scripts
+{
+        @*-- css --*@
+        <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+
+        @*-- js --*@
+        <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+        <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+        <script src="~/Content/js/plugins/chartJs/Chart.min.js"></script>
+        <script src="~/scriptsHighcharts/highcharts.min.js"></script>
+        <script src="~/scriptsHighcharts/exporting.min.js"></script>
+
+        <script type="text/javascript">
+        var myArray = [];
+        var par = [];
+        @foreach (var d in Model)
+            {
+            @:par = ['@Html.DisplayFor(modelItem => d.name)',@Html.DisplayFor(modelItem => d.Cantidad)];
+            @:myArray.push(par);
+        }
+        //alert(myArray);
+
+        var myArray_b = [];
+        var tri = [];
+
+        @foreach (var item3 in @ViewBag.anual)
+        {
+            @:tri = ["@item3.mes", parseFloat(@item3.TOTAL), "@item3.mes"];
+            @:myArray_b.push(tri);
+        }
+        //alert(myArray_b);
+
+         //Para la grafica de las evaluaciones mensuales
+        var myArrayMes = [];
+        var myArrayValor_ra = [];
+        var myArrayValor_rb = [];
+        var myArrayValor_rm = [];
+        var myArrayValor_nc = [];
+        @foreach (var item4 in ViewBag.anualDx)
+        {
+            @:myArrayMes.push("@item4.mes");
+            @:myArrayValor_ra.push(@item4.ra);
+            @:myArrayValor_rb.push(@item4.rb);
+            @:myArrayValor_rm.push(@item4.rm);
+            @:myArrayValor_nc.push(@item4.nc);
+        }
+
+        //----------------------------------------------------------
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+        //----------------------------------------------------------
+
+        </script>
+
+        <script>
+
+            //-------------------------------------------------------------------------------------- Grafica Pastel praa directora en otro menú
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Gráfica Evaluaciones en rango de fechas'
+                },
+                subtitle: {
+                    text: "Estatus"
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%</b>)'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.y}'
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Est',
+                    colorByPoint: true,
+                    data: myArray
+                }]
+            });
+
+            Highcharts.chart('container_b', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Evaluaciones'
+                },
+                subtitle: {
+                    text: 'Por mes'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Basado en Fecha de Evaluacion'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> <br/>'
+                },
+
+                series: [
+                    {
+                        name: "Browsers",
+                        colorByPoint: true,
+                        data: myArray_b
+                    }
+                ],
+                drilldown: {
+                    breadcrumbs: {
+                        position: {
+                            align: 'right'
+                        }
+                    },
+                    series: [
+                        {
+                            name: "Enero",
+                            id: "Enero",
+                            data: [
+                                [
+                                    "v65.0",
+                                    0.1
+                                ],
+                                [
+                                    "v64.0",
+                                    1.3
+                                ],
+                                [
+                                    "v63.0",
+                                    53.02
+                                ],
+                                [
+                                    "v62.0",
+                                    1.4
+                                ],
+                                [
+                                    "v61.0",
+                                    0.88
+                                ],
+                                [
+                                    "v60.0",
+                                    0.56
+                                ],
+                                [
+                                    "v59.0",
+                                    0.45
+                                ],
+                                [
+                                    "v58.0",
+                                    0.49
+                                ],
+                                [
+                                    "v57.0",
+                                    0.32
+                                ],
+                                [
+                                    "v56.0",
+                                    0.29
+                                ],
+                                [
+                                    "v55.0",
+                                    0.79
+                                ],
+                                [
+                                    "v54.0",
+                                    0.18
+                                ],
+                                [
+                                    "v51.0",
+                                    0.13
+                                ],
+                                [
+                                    "v49.0",
+                                    2.16
+                                ],
+                                [
+                                    "v48.0",
+                                    0.13
+                                ],
+                                [
+                                    "v47.0",
+                                    0.11
+                                ],
+                                [
+                                    "v43.0",
+                                    0.17
+                                ],
+                                [
+                                    "v29.0",
+                                    0.26
+                                ]
+                            ]
+                        },
+                        {
+                            name: "Febrero",
+                            id: "Febrero",
+                            data: [
+                                [
+                                    "v58.0",
+                                    1.02
+                                ],
+                                [
+                                    "v57.0",
+                                    7.36
+                                ],
+                                [
+                                    "v56.0",
+                                    0.35
+                                ],
+                                [
+                                    "v55.0",
+                                    0.11
+                                ],
+                                [
+                                    "v54.0",
+                                    0.1
+                                ],
+                                [
+                                    "v52.0",
+                                    0.95
+                                ],
+                                [
+                                    "v51.0",
+                                    0.15
+                                ],
+                                [
+                                    "v50.0",
+                                    0.1
+                                ],
+                                [
+                                    "v48.0",
+                                    0.31
+                                ],
+                                [
+                                    "v47.0",
+                                    0.12
+                                ]
+                            ]
+                        },
+                        {
+                            name: "Marzo",
+                            id: "Marzo",
+                            data: [
+                                [
+                                    "v11.0",
+                                    6.2
+                                ],
+                                [
+                                    "v10.0",
+                                    0.29
+                                ],
+                                [
+                                    "v9.0",
+                                    0.27
+                                ],
+                                [
+                                    "v8.0",
+                                    0.47
+                                ]
+                            ]
+                        }
+                    ]
+                }
+            });
+
+            Highcharts.chart('container_c', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Diagnósticos'
+                },
+                subtitle: {
+                    text: 'Mensuales'
+                },
+                xAxis: {
+                    categories: myArrayMes,
+
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Basada Fecha Evaluación'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:9px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'RA',
+                    data: myArrayValor_ra
+
+                }, {
+                    name: 'RB',
+                    data: myArrayValor_rb
+
+                }, {
+                    name: 'RM',
+                    data: myArrayValor_rm
+
+                }, {
+                    name: 'NC',
+                    data: myArrayValor_nc
+
+                }]
+            });
+
+        </script>
+
+    }
+
+</div>

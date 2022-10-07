@@ -1,0 +1,628 @@
+﻿@model psicologiamvc.Models.Evaluacion
+
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="gray-bg form-horizontal">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Detalle de la Evaluación</h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tabCriterios"> Criterios de Evaluacion</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabCompetencias"> Competencias - Modalidad</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabDatos"> Datos Generales - Bender</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabTrayectoria"> Trayectoria - Instrumentos</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabPersonalidad"> Personalidad</a></li>
+                            <li class=""><a data-toggle="tab" href="#tabObservacion"> Observaciones</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            @*Criterios de evaluacion*@
+                            <div id="tabCriterios" class="tab-pane active">
+                                <div class="panel-body">
+
+                                    <div class="row">
+
+                                        <div class="col-lg-6">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Juicio</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbJuicio2, ViewData["criter"] as SelectList, new { @id = "cmbJuicio2", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Control de Impulsos</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbControlimpulsos, ViewData["criter"] as SelectList, new { @id = "cmbControlimpulsos", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Apego a Normas</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbApegonormas, ViewData["criter"] as SelectList, new { @id = "cmbApegonormas", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tolerancia al Estrés</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbToleranciapresion, ViewData["criter"] as SelectList, new { @id = "cmbToleranciapresion", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Estabilidad Emocional</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbEstabilidademocional, ViewData["criter"] as SelectList, new { @id = "cmbEstabilidademocional", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alteraciones en la Percepcion y el Pensamiento</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbAlteraciones, ViewData["criter"] as SelectList, new { @id = "cmbAlteraciones", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-6">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Autoestima</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cAutoestima, ViewData["criter02"] as SelectList, new { @id = "cAutoestima", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Manejo de Emociones</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cEmociones, ViewData["criter02"] as SelectList, new { @id = "cEmociones", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Relaciones interpersonales</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cRelaciones, ViewData["criter"] as SelectList, new { @id = "cRelaciones", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Competencias, Capacidades Cognitivas y Motoras p/ Puesto</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cmbCompetencias, ViewData["criter"] as SelectList, new { @id = "cmbCompetencias", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Competencias para el Cargo</label>
+                                                <div class="col-sm-8">
+                                                    @Html.DropDownListFor(model => model.cCompetencia, ViewData["criter03"] as SelectList, new { @id = "cCompetencia", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="tabCompetencias" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Competencias básicas para el puesto</h5>
+                                            <div class="ibox-tools">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bLiderazgo, new { @class = "i-checks" }) <label class="control-label"> Liderazgo model</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bPlaneacion, new { @class = "i-checks" }) <label class="control-label"> Planeacion y organizacion model</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bDecisiones, new { @class = "i-checks" }) <label class="control-label"> Toma de Decisiones model</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bconflictos, new { @class = "i-checks" }) <label class="control-label"> Manejo de conflictos y negociación model</label></div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bAtencion, new { @class = "i-checks" }) <label class="control-label"> Atención y concentración</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bAdaptabilidad, new { @class = "i-checks" }) <label class="control-label"> Adaptabilidad</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bVocacion, new { @class = "i-checks" }) <label class="control-label"> Vocación de servicios</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bCapacidad, new { @class = "i-checks" }) <label class="control-label"> Capacidad de aprendizaje</label></div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bObservaciones, new { @class = "i-checks" }) <label class="control-label"> Observación</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bAnalisis, new { @class = "i-checks" }) <label class="control-label"> Análisis y síntesis</label></div>
+                                                    <div>@Html.CheckBoxFor(model => model.bHabilidades, new { @class = "i-checks" }) <label class="control-label"> Habilidades de comunicación</label></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Modalidades de Contacto</h5>
+                                            <div class="ibox-tools">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bTrabajo, new { @class = "i-checks" }) <label class="control-label"> Trabajo unitario</label></div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bOrientacion, new { @class = "i-checks" }) <label class="control-label"> Orientación a resultados</label></div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div>@Html.CheckBoxFor(model => model.bIntegridad, new { @class = "i-checks" }) <label class="control-label"> Integridad</label></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="tabDatos" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Datos Generales</h5>
+                                            <div class="ibox-tools">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+
+                                            <div class="form-group" id="data_1">
+                                                <label class="col-sm-2 control-label">Otra fecha Evaluacion</label>
+                                                <div class="input-group date col-sm-4">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>@Html.TextBoxFor(model => model.fEvalpsi, new { @class = "form-control"})
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextBoxFor(model => model.cLugarnac, new { @class = "form-control", placeholder = "Ingrese el lugar de Nacimiento" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Escolaridad</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextBoxFor(model => model.cEscolaridad, new { @class = "form-control", placeholder = "Ingrese la Escolaridad" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Grado</label>
+                                                <div class="col-sm-10">
+                                                    @Html.DropDownListFor(model => model.cGrado, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Básico", text = "Básico" },
+                                                            new { value = "Medio", text = "Medio" },
+                                                            new { value = "Superior", text = "Superior" },
+                                                            new { value = "Posgrado", text = "Posgrado" }
+                                                        }, "value", "text", 0), new { @id = "cGrado", @class = "form-control" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Bender</h5>
+                                            <div class="ibox-tools">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Bender</label>
+                                                <div class="col-sm-10">
+                                                    @Html.DropDownListFor(model => model.cBender, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "0 - 3: Ausencia de daño", text = "0 - 3: Ausencia de daño" },
+                                                            new { value = "4: Bordeline", text = "4: Bordeline" },
+                                                            new { value = "5 - 6: Alguna evidencia de daño", text = "5 - 6: Alguna evidencia de daño" },
+                                                            new { value = "7 - 8: Fuerte evidencia de daño", text = "7 - 8: Fuerte evidencia de daño" },
+                                                            new { value = "9 - 12: Muy fuerte evidencia de daño", text = "9 - 12: Muy fuerte evidencia de daño" },
+                                                            new { value = "No aplica", text = "No aplica" }
+                                                        }, "value", "text", 0), new { @id = "cBender", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Especificación del Daño</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cDescdano, new { @class = "form-control", rows = 7 })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tabTrayectoria" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Trayectoria Laboral e Instrumentos de Diagnóstico</h5>
+                                            <div class="ibox-tools">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Trayectoria</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cLaboralpsi, new { @class = "form-control", rows = 7 })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div>@Html.CheckBoxFor(model => model.bMachover, new { @class = "i-checks" }) <label class="control-label"> Machover</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bFigura, new { @class = "i-checks" }) <label class="control-label"> Figura bajo la lluvia</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bMerril, new { @class = "i-checks" }) <label class="control-label"> Therman Merril</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bMmpi, new { @class = "i-checks" }) <label class="control-label"> MMPI-2</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bAutobiografia, new { @class = "i-checks" }) <label class="control-label"> Autobioagrafía</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bCleaver, new { @class = "i-checks" }) <label class="control-label"> CLEAVER</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bLuscher, new { @class = "i-checks" }) <label class="control-label"> Test de Lusher</label></div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div>@Html.CheckBoxFor(model => model.bTest, new { @class = "i-checks" }) <label class="control-label"> Apercepción temática</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bRaven, new { @class = "i-checks" }) <label class="control-label"> RAVEN</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bBeta, new { @class = "i-checks" }) <label class="control-label"> BETA II-R</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bHtp, new { @class = "i-checks" }) <label class="control-label"> HTP</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bSacks, new { @class = "i-checks" }) <label class="control-label"> SACKS</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.b16fp, new { @class = "i-checks" }) <label class="control-label"> 16 FP</label></div>
+                                                        <div>@Html.CheckBoxFor(model => model.bBetaiiifr, new { @class = "i-checks" }) <label class="control-label"> BETA III-R</label></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Coeficiente Intelectual</label>
+                                                <div class="col-sm-10">
+                                                    @Html.DropDownListFor(model => model.cCi, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Superior", text = "Superior" },
+                                                            new { value = "Promedio alto", text = "Promedio alto" },
+                                                            new { value = "Promedio", text = "Promedio" },
+                                                            new { value = "Promedio bajo", text = "Promedio bajo" },
+                                                            new { value = "Bajo", text = "Bajo" }
+                                                        }, "value", "text", 0), new { @id = "cCi", @class = "form-control" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tabPersonalidad" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Fortalezas</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cFortalezas, new { @class = "form-control", rows = 7 })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Factores de Riesgo</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cRiesgos, new { @class = "form-control", rows = 7 })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Sintésis Técnica</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cDiagnostico, new { @class = "form-control", rows = 7 })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Recomendaciones</label>
+                                                <div class="col-sm-10">
+                                                    @Html.TextAreaFor(model => model.cRecomendaciones, new { @class = "form-control", rows = 7 })
+                                                    @*@Html.HiddenFor(model => model.curp_evaluado, new { id = "curp_evaluado", Value = ViewBag.curp })
+                                                    @Html.HiddenFor(model => model.idhistorico, new { id = "idhistorico", Value = ViewBag.ide })*@
+                                                </div>
+                                            </div>
+                                            @Html.HiddenFor(model => model.curp_evaluado, new { id = "curp_evaluado", Value = ViewBag.curp })
+                                            @Html.HiddenFor(model => model.idhistorico, new { id = "idhistorico", Value = ViewBag.ide })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Resutlado</label>
+                                        <div class="col-sm-10">
+                                            @Html.DropDownListFor(model => model.cResultado, new SelectList(
+                                                        new List<object> {
+                                                            new { value = "Recomendable", text = "Recomendable" },
+                                                            new { value = "No recomendable", text = "No recomendable" },
+                                                            new { value = "Recomendable con observaciones", text = "Recomendable con observaciones" },
+                                                            new { value = "Aprobado", text = "Aprobado" },
+                                                            new { value = "No aprobado", text = "No aprobado" },
+                                                            new { value = "Aprobado con restricciones", text = "Aprobado con restricciones" },
+                                                            new { value = "Aprobado con seguimiento", text = "Aprobado con seguimiento" },
+                                                            new { value = "Sin diagnóstico", text = "Sin diagnóstico" },
+                                                            new { value = "No presento", text = "No presentó" }
+                                                        }, "value", "text", 0), new { @id = "cResultado", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Supervisor</label>
+                                        <div class="col-sm-10">
+                                           @Html.DropDownListFor(model => model.idSupPsi, ViewData["super"] as SelectList, new { @id = "idSupPsi", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-10">
+                                            <div>@Html.CheckBoxFor(model => model.bConcluido, new { @class = "i-checks" }) <label class="control-label"> Evaluación concluida</label></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary mensaje" type="submit">Guardar Evaluacion</button>
+                                            @*<button type="button" class="btn btn-primary" onclick="insertar_evaluacion();">Guardar Evaluacion</button>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tabObservacion" class="tab-pane">
+
+                                @Html.Hidden("idObservacionPendiente")
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+
+                                        <input id="OBSERVA" name="OBSERVA" type="button" class="btn btn-danger demo2" value="Nueva Observación" onclick="capturaObservacion(curp_evaluado)" />
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="table-responsive">
+
+                                            <table class="table table-striped table-bordered table-hover dataTables-example">
+
+                                                <thead>
+
+                                                    @*<th>Evaluado</th>*@
+
+                                                <th>ID</th>
+
+                                                <th>Observación Pública</th>
+
+                                                <th>Fecha Registro</th>
+
+                                                <th>Recomendacion</th>
+
+                                                <th>Direccion</th>
+
+                                                <th>Por Responder</th>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    @foreach (var obs in ViewData["obser"] as IEnumerable<psicologiamvc.Models.Consultas>)
+                                                    {
+                                                        <tr>
+                                                            @*<td>@obs.evaluado</td>*@
+
+                                                            <td>@obs.idO</td>
+
+                                                            <td>@obs.observacionpublica</td>
+
+                                                            <td>@obs.fecha</td>
+
+                                                            <td>@obs.recomendacion</td>
+
+                                                            <td>@obs.departamento</td>
+
+                                                            @*<td>@ViewData["obserPendiente"]</td>*@
+                                                            <td>
+                                                            @foreach(var pend in ViewData["obserPendiente"] as IEnumerable<psicologiamvc.Models.Observaciones>)
+                                                            {
+                                                                @*@pend.tt*@
+                                                                if (@obs.recomendacion == "")
+                                                                {
+                                                                    <input id="OBSERVARES" name="OBSERVARES" type="button" class="btn btn-success demo2" value="Responder" onclick="capturaObservacionRespuesta(@obs.idO)" />
+                                                                }
+                                                            }
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="modal inmodal" id="modalObservacion" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content animated bounceInRight">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <i class="fa fa-address-card modal-icon"></i>
+
+                <h4 class="modal-title">Nueva Observación Pública</h4>
+
+                <small class="font-bold">Captura de Información</small>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label>Observación</label>
+
+                    @Html.TextArea("observacion", new { @id = "observacion", @class = "form-control", rows = 4})
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                @Html.Hidden("curpNuevaObservacion")
+
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+
+                <button type="button" class="btn btn-primary" onclick="grabarNuevaObservacion()">Grabar Observación Pública</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal inmodal" id="modalObservacionRespuesta" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content animated bounceInRight">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <i class="fa fa-address-card modal-icon"></i>
+
+                <h4 class="modal-title">Respuesta a observaciones públicas</h4>
+
+                <small class="font-bold">Captura de Información</small>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+
+                    <label>Observación</label>
+
+                    @Html.TextArea("observacionForanea", new { @id = "observacionForanea", @class = "form-control", rows = 4, @readonly = "readonly" })
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Respuesta</label>
+
+                    @Html.TextArea("respuesta", new { @id = "respuesta", @class = "form-control", rows = 4 })
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+
+                <button type="button" class="btn btn-primary" onclick="responderObservacion()">Grabar Observación Pública</button>
+                @*<button type="button" class="btn btn-primary" onclick="redGrabar();">Grabar Observación Pública</button>*@
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+    <link href="~/Content/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/js-evaluacion.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $('.mensaje').click(function () {
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                type: "success"
+            });
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<psicologiamvc.Models.Consultas>
+
+@{
+    ViewBag.Title = "IndexEvaluacionSupervisor";
+}
+
+@using (Html.BeginForm("IndexEvaluacionSupervisor", "Evaluacion", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Busqueda Evaluados
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.TextBox("cadena", "", new { @class = "form-control", placeholder = "Paterno Materno Nombre - Evaluado" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+            <th>IdH</th>
+            <th>IdE</th>
+            <th>Evaluado</th>
+            <th>Evaluacion</th>
+            <th>Estatus</th>
+            <th>Fecha</th>
+            <th>Dependencia</th>
+            <th>NoCon</th>
+            <th>Foto</th>
+            <th>Acciones</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(modelItem => item.curp)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.evaluado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.evaluacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.estatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dependencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoCon)
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/Images/"+@item.IdH+".Jpeg")" width="100" height="120" />
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Ver", "Ver", new { curp = item.curp })
+                            @Html.ActionLink("Detalle ", "Details", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Imprimir", "Details", new { /* id=item.PrimaryKey */ })*@
+                            
+                            <a href="~/Evaluacion/Editar?curp=@item.curp&ide=@item.IdE" class="btn btn-xs  btn-primary">Ver Expediente</a>
+                            <a href="#" class="btn btn-xs  btn-default">Editar</a>
+                            @*<a href="~/Impresion/Index?curp=@item.curp&ide=@item.IdE" class="btn btn-xs  btn-danger">Imprimir</a>*@
+                            <a href="~/Impresion/pdf?curp=@item.curp&ide=@item.IdE" class="btn btn-xs  btn-danger">Imprimir</a>
+                            @if (item.Protocolo == 0)
+                            {
+                                <a href="~/Protocolo/IndexProtocolo?curp=@item.curp&ide=@item.IdE" class="btn btn-xs  btn-success">Add Protocolos</a>
+                            }
+                            else
+                            {
+                                <a href="~/Protocolo/EditarProtocolo?curp=@item.curp&ide=@item.IdE" class="btn btn-xs  btn-success">Upd Protocolos</a>
+                            }
+
+                            @if (item.Vinculo != 0)
+                            {
+                                <a href="#" class="btn btn-xs  btn-danger">Hay Vínculos</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

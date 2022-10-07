@@ -1,0 +1,414 @@
+﻿@model psicologiamvc.Models.Indice
+
+@{
+    ViewBag.Title = "Indice del Expediente Psicológico";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="gray-bg form-horizontal">
+
+        @*<div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Indice del Expediente Psicológico</h2>
+            </div>
+        </div>*@
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="ibox">
+
+                    <div class="ibox-title">
+
+                        <h5>Indice del Expediente Psicológico</h5>
+
+                    </div>
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+
+                            @Html.HiddenFor(model => model.curp_evaluado, new { id = "curp_evaluado", Value = ViewBag._curp })
+                            @Html.HiddenFor(model => model.idhistorico, new { id = "idhistorico", Value = ViewBag._ide })
+
+                            <div class="col-lg-4">
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Formatos de Evaluacion
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Reporte de Integración Psicológica: </label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nIntegracion, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Solicitud de Empleo: </label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nSolicitud, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Ficha de Datos Personales:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nFicha, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Ficha de Permanencia:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nFichapermanencia, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Ficha de Loc:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nFichaloc, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Formato de Autorización:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nAutorizacion, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Hoja de Opinión y Comentarios:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nComentarios, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Hoja de No Concluyó:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nNoconcluyo, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Exámen Mental:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nExamen, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Formato de Entrevista:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nEntrevista, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Integración de Prueba Psicológica:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nPruebas, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Cambio de Diagnóstico:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nCambio, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Test de Inteligencia
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">WAIS:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nWais, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Raven:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nRaven, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Therman Merril:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nTerman, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Beta III-R:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nBeta3, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Beta II-R:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nBeta, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Test de Personalidad
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">MMPI-II:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nMmpii, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">MMPI-2RF:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nMmp2rf, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Luscher:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nLusher, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">16PF:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.n16pf, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Barsit:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nBarsit, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Adaptabilidad
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Cleaver:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nCleaver, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4">
+
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Test Proyectivos
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Autobiografía:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nAutobiografia, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">TAT:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nTat, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Machover:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nMachover, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">HTP:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nHtp, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Bajo la Lluvia:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nLluvia, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">SACKS:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nSacks, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Organicidad
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Bender:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nBender, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Hoja de Observaciones en Grupo
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Hoja de Observaciones en Grupo:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nGrupo, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-success">
+
+                                    <div class="panel-heading">
+
+                                        Otros
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" style="text-align:left">Especifique:</label>
+                                            <div class="col-sm-10">
+                                                @Html.TextBoxFor(model => model.cOtro, new { @class = "form-control", placeholder = "Especifique" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-8 control-label" style="text-align:left">Cantidad:</label>
+                                            <div class="col-sm-4">
+                                                @Html.TextBoxFor(model => model.nOtro, new { @class = "form-control", placeholder = "0", @type = "number" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div>
+                                <button class="btn btn-primary mensaje" type="submit">Guardar Indice</button>
+                                @*<button type="button" class="btn btn-primary" onclick="insertar_evaluacion();">Guardar Evaluacion</button>*@
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}

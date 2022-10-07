@@ -1,0 +1,296 @@
+﻿@model IEnumerable<psicologiamvc.Models.Asistencia>
+
+@{
+    ViewBag.Title = "Index Asistencia";
+}
+
+@using (Html.BeginForm("Index", "AsistenciaPsi", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Lista de Asistencia
+        </div>
+        <div class="panel-body">
+            <div class="ibox-content">
+                <div class="form-group" id="data_1">
+                    <label class="font-normal">Seleccione una fecha o ingrese una fecha válida</label>
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha" name="fecha" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+
+            <thead>
+                <tr>
+                    <th>
+                        IDH
+                    </th>
+                    <th>
+                        IdEval
+                    </th>
+                    <th>
+                        Evaluado
+                    </th>
+                    <th>
+                        Dependencia
+                    </th>
+                    <th>
+                        Fecha Alta
+                    </th>
+                    @*<th>
+                        Foto
+                    </th>*@
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(modelItem => item.idHistorico)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idHistorico)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idevaluacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.evaluado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.desc_dependencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha_alta)
+                        </td>
+                        @*<td>
+                            <img width="100" height="120" src="@Url.Action("convertirImagen", "EvaluacionPsi", new { _IdH = item.idHistorico })" />
+                        </td>*@
+                        <td>
+                            <div class="text-center">
+                                @Html.Hidden("idHistoricoN")
+                                <input id="ASI" name="ASI" type="button" class="btn btn-primary demo2" value="ASISTENCIA" onclick="tomarAsistencia(@item.idHistorico)" />
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="modal inmodal" id="modalAsistencia" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    @*<i class="fa fa-calendar modal-icon"></i>*@
+                    <h4 class="modal-title">Toma de Asistencia</h4>
+                    <small class="font-bold">Asistencia Personalizada</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="data_1">
+                        <label class="font-normal">Seleccione fecha y hora de entrada primer día</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="entradaprimerdia" name="entradaprimerdia" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                        <input type="text" class="form-control" id="horaentradaprimerdia" name="horaentradaprimerdia" value="12:00">
+                    </div>
+                    <div class="form-group" id="data_1">
+                        <label class="font-normal">Seleccione fecha y hora de salida primer día</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="salidaprimerdia" name="salidaprimerdia" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                        <input type="text" class="form-control" id="horasalidaprimerdia" name="horasalidaprimerdia" value="12:00">
+                    </div>
+                    <div class="form-group" id="data_1">
+                        <label class="font-normal">Seleccione fecha y hora de entrada segundo día</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="entradasegundodia" name="entradasegundodia" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                        <input type="text" class="form-control" id="horaentradasegundodia" name="horaentradasegundodia" value="12:00">
+                    </div>
+                    <div class="form-group" id="data_1">
+                        <label class="font-normal">Seleccione fecha y hora de salida segundo día</label>
+                        <div class="input-group date">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="salidasegundodia" name="salidasegundodia" class="form-control">
+                        </div>
+                    </div>
+                    <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                            <span class="fa fa-clock-o"></span>
+                        </span>
+                        <input type="text" class="form-control" id="horasalidasegundodia" name="horasalidasegundodia" value="12:00">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="asistencia();">Tomar Asistencia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    @*-- css --*@
+    <link href="~/Content/css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/clockpicker/clockpicker.css" rel="stylesheet" />
+    <link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    @*-- js --*@
+    <script src="~/Content/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <script src="~/Content/js/plugins/clockpicker/clockpicker.js"></script>
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+    @*<script src="~/Scripts/js-asistencia.js"></script>*@
+
+    <script language="javascript">
+
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true,
+            format: "dd/mm/yyyy"
+        });
+
+        $(document).ready(function () {
+            $('.clockpicker').clockpicker();
+        });
+
+        function tomarAsistencia(idh) {
+            //alert("IDH: " + idh);
+
+            $('#idHistoricoN').val(idh);
+
+            $('#modalAsistencia').modal('show');
+
+            getAsistencia(idh);
+        }
+
+        function getAsistencia(idhAsistencia) {
+
+            var _idhAsistencia = idhAsistencia;
+
+            //alert(_idhAsistencia);
+
+            //objeto       atributo/propiedad   valor
+            //var asistencia = { idHistorico: idhAsistencia };
+
+            var url = "@Url.Action("GetData", "AsistenciaPsi")";
+            var data = { idHistorico: idhAsistencia };
+            $.post(url, data).done(function (data) {
+
+                //alert(data.fPsico1in.substr(0, 10));
+                $("#entradaprimerdia").val(data.fPsico1in.substr(0, 10));
+                if (data.fPsico1in.substr(0, 10) == "01/01/1900") {
+                    $("#horaentradaprimerdia").val("09:00");
+                }
+                else {
+                    $("#horaentradaprimerdia").val(data.fPsico1in.substr(11, 5));
+                }
+
+
+                //fecha hora salida primer dia
+                $("#salidaprimerdia").val(data.fPsico1out.substr(0, 10));
+                if (data.fPsico1out.substr(0, 10) == "01/01/1900") {
+                    $("#horasalidaprimerdia").val("16:00");
+                }
+                else {
+                    $("#horasalidaprimerdia").val(data.fPsico1out.substr(11, 5));
+                }
+
+                //fecha hora entrada segundo dia
+                $("#entradasegundodia").val(data.fPsico2in.substr(0, 10));
+                $("#horaentradasegundodia").val(data.fPsico2in.substr(11, 5));
+
+                //fecha hora salida segundo dia
+                $("#salidasegundodia").val(data.fPsico2out.substr(0, 10));
+                $("#horasalidasegundodia").val(data.fPsico2out.substr(11, 5));
+
+            }).fail(manejarErrorAjax);
+
+        }
+
+        function asistencia() {
+            var _f1e = $("#entradaprimerdia").val();
+            var _f1s = $("#salidaprimerdia").val();
+            var _f2e = $("#entradasegundodia").val();
+            var _f2s = $("#salidasegundodia").val();
+
+            var _idh = $("#idHistoricoN").val();
+            var _bToxIn = true;
+            var _fToxIn_fecha = $("#entradaprimerdia").val() + " " + $("#horaentradaprimerdia").val();
+            var _bToxOut = true;
+            var _fTox_fecha = $("#salidaprimerdia").val() + " " + $("#horasalidaprimerdia").val();
+            var _bMedIn = true;
+            var _fMedIn_fecha = $("#entradasegundodia").val() + " " + $("#horaentradasegundodia").val();
+            var _bMedOut = true;
+            var _fMed_fecha = $("#salidasegundodia").val() + " " + $("#horasalidasegundodia").val();
+
+            if (_f1e == "")
+                _fToxIn_fecha = "1900-01-01 00:00";
+
+            if (_f1s == "")
+                _fTox_fecha = "1900-01-01 00:00";
+
+            if (_f2e == "")
+                _fMedIn_fecha = "1900-01-01 00:00";
+
+            if (_f2s == "")
+                _fMed_fecha = "1900-01-01 00:00";
+
+            var url = "@Url.Action("js_asistencia_tomar", "AsistenciaPsi")";
+            var data = { bPsi1in: _bToxIn, fPsico1in: _fToxIn_fecha, bPsi1out: _bToxOut, fPsico1out: _fTox_fecha, bPsi2in: _bMedIn, fPsico2in: _fMedIn_fecha, bPsi2out: _bMedOut, fPsico2out: _fMed_fecha, idHistorico: _idh };
+            $.post(url, data).done(function (data) {
+                if (data == "Ok") {
+                    swal({
+                        title: "Asistencia Registrada",
+                        text: "Satisfactoriamente",
+                        type: "success"
+                    });
+
+                    $('#modalAsistencia').modal('hide');
+                }
+            }).fail(manejarErrorAjax);
+        }
+
+        function manejarErrorAjax(err) {
+            console.log(err.responseText);
+        }
+
+    </script>
+}   

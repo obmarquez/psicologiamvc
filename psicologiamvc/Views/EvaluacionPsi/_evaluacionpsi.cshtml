@@ -1,0 +1,23 @@
+﻿@model IEnumerable<psicologiamvc.Models.Evaluacion>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tatuaje</th>
+            <th>Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.id)</td>
+                <td style="text-align:center">
+                    <img src="@Url.Action("getTatuajeEspecifico", "EvaluacionPsi", new { idh=item.idhistorico, idt=item.id, opcion =2 })">
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.cDescripcion)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,917 @@
+﻿@model psicologiamvc.Models.Evaluacion
+
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="gray-bg form-horizontal">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Detalle de la Evaluación</h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    @*Criterio de evaluacion*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Criterios de Evaluacion</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="row">
+
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Juicio</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Control de Impulsos</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Apego a Normas</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Tolerancia al Estrés</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Estabilidad Emocional</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Alteraciones en la Percepcion y el Pensamiento</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="1">Riesgo bajo</option>
+                                                <option value="2">Riesgo medio</option>
+                                                <option value="3">Riesgo alto</option>
+                                                <option value="4">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Autoestima</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="Riesgo bajo">Riesgo bajo</option>
+                                                <option value="Riesgo medio">Riesgo medio</option>
+                                                <option value="No aplica">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Manejo de Emociones</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="Riesgo bajo">Riesgo bajo</option>
+                                                <option value="Riesgo medio">Riesgo alto</option>
+                                                <option value="No aplica">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Relaciones interpersonales</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="Riesgo bajo">Riesgo bajo</option>
+                                                <option value="Riesgo medio">Riesgo medio</option>
+                                                <option value="Riesgo alto">Riesgo alto</option>
+                                                <option value="No aplica">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Competencias, Capacidades Cognitivas y Motoras p/ Puesto</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="Riesgo bajo">Riesgo bajo</option>
+                                                <option value="Riesgo medio">Riesgo medio</option>
+                                                <option value="Riesgo alto">Riesgo alto</option>
+                                                <option value="No aplica">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Competencias para el Cargo</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="slctJuicio">
+                                                <option value="">Seleccione</option>
+                                                <option value="Competente">Competente</option>
+                                                <option value="Aun no competente">Aun no competente</option>
+                                                <option value="No cumple requisitos">No cumple requisitos</option>
+                                                <option value="No aplica">No aplica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    @*Competencias básicas para el puesto*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Competencias básicas para el puesto</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Liderazgo </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Planeación y organización </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Toma de Decisiones </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Manejo de conflictos y negociación </label></div>
+                                    <div>@Html.CheckBoxFor(model => model.bLiderazgo, new { @class = "i-checks" }) <label class="control-label"> Liderazgo model</label></div>
+                                    <div>@Html.CheckBoxFor(model => model.bPlaneacion, new { @class = "i-checks" }) <label class="control-label"> Planeacion y organizacion model</label></div>
+                                    <div>@Html.CheckBoxFor(model => model.bDecisiones, new { @class = "i-checks" }) <label class="control-label"> Toma de Decisiones model</label></div>
+                                    <div>@Html.CheckBoxFor(model => model.bconflictos, new { @class = "i-checks" }) <label class="control-label"> Manejo de conflictos y negociación model</label></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Atención y concentración </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Adaptabilidad </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Vocación de servicios </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Capacidad de aprendizaje </label></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Observación </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Análisis y síntesis </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Habilidades de comunicación </label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Modalidades de Contacto*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Modalidades de Contacto</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Trabajo unitario </label></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Orientación a resultados </label></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Integridad </label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Datos Generales*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Datos Generales</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.cLugarnac, new { @class = "form-control", placeholder = "Ingrese el lugar de Nacimiento" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Escolaridad</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.cEscolaridad, new { @class = "form-control", placeholder = "Ingrese la Escolaridad" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Grado</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="slctJuicio">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Básico</option>
+                                        <option value="2">Medio</option>
+                                        <option value="3">Superior</option>
+                                        <option value="4">Posgrado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Bender*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Bender</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Bender</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="slctJuicio">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">0 - 3: Ausencia de daño</option>
+                                        <option value="2">4: Bordeline</option>
+                                        <option value="3">5 - 6: Alguna evidencia de daño</option>
+                                        <option value="4">7 - 8: Fuerte evidencia de daño</option>
+                                        <option value="5">9 - 12: Muy fuerte evidencia de daño</option>
+                                        <option value="6">No aplica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Especificación del Daño</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.cBender, new { @class = "form-control", placeholder = "Ingrese la descripción del daño" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Trayectoria Laboral e Instrumentos de Diagnóstico*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Trayectoria Laboral e Instrumentos de Diagnóstico</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Trayectoria</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(model => model.cLaboralpsi, new { @class = "form-control", placeholder = "Describa la trayectoria laboral" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Machover </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Figura bajo la lluvia </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Terman Merril </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> MMPI-2 </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Autobiografía </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> CLEAVER </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Test de Lusher </label></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Apreciación temática </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> RAVEN </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> BETA II-R </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> HTP </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> SACKS </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> 16 FP </label></div>
+                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> BETA III-R </label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Coeficiente Intelectual</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="slctJuicio">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Superior</option>
+                                        <option value="2">Promedio alto</option>
+                                        <option value="3">Promedio</option>
+                                        <option value="4">Promedio bajo</option>
+                                        <option value="5">Bajo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Personaliad*@
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Personaliad</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Fortalezas</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.cFortalezas, new { @class = "form-control", rows = 7 })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Factores de Riesgo</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.cRiesgos, new { @class = "form-control", rows = 7 })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sintésis Técnica</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.cDiagnostico, new { @class = "form-control", rows = 7 })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Recomendaciones</label>
+                                <div class="col-sm-10">
+                                    @Html.TextAreaFor(m => m.cRecomendaciones, new { @class = "form-control", rows = 7})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Resutlado</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="slctJuicio">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">Recomendable</option>
+                                        <option value="2">No recomendable</option>
+                                        <option value="3">Recomendable con observaciones</option>
+                                        <option value="4">Aprobado</option>
+                                        <option value="5">No aprobado</option>
+                                        <option value="6">Aprobado con restricciones</option>
+                                        <option value="7">Aprobado con seguimiento</option>
+                                        <option value="8">Sin diagnóstico</option>
+                                        <option value="9">No presentó</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Supervisor</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="slctJuicio">
+                                        <option value="">Seleccione</option>
+                                        <option value="1">504</option>
+                                        <option value="2">598</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Evaluación concluida </label></div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">Guardar Evaluacion</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+
+@*<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>Detalle de la Evaluación</h2>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <form method="get" class="form-horizontal">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Criterios de Evaluacion</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Juicio</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Control de Impulsos</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Apego a Normas</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Tolerancia al Estrés</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Estabilidad Emocional</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Alteraciones en la Percepcion y el Pensamiento</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="1">Riesgo bajo</option>
+                                            <option value="2">Riesgo medio</option>
+                                            <option value="3">Riesgo alto</option>
+                                            <option value="4">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Autoestima</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="Riesgo bajo">Riesgo bajo</option>
+                                            <option value="Riesgo medio">Riesgo medio</option>
+                                            <option value="No aplica">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Manejo de Emociones</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="Riesgo bajo">Riesgo bajo</option>
+                                            <option value="Riesgo medio">Riesgo alto</option>
+                                            <option value="No aplica">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Relaciones interpersonales</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="Riesgo bajo">Riesgo bajo</option>
+                                            <option value="Riesgo medio">Riesgo medio</option>
+                                            <option value="Riesgo alto">Riesgo alto</option>
+                                            <option value="No aplica">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Competencias, Capacidades Cognitivas y Motoras p/ Puesto</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="Riesgo bajo">Riesgo bajo</option>
+                                            <option value="Riesgo medio">Riesgo medio</option>
+                                            <option value="Riesgo alto">Riesgo alto</option>
+                                            <option value="No aplica">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Competencias para el Cargo</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control m-b" name="slctJuicio">
+                                            <option value="">Seleccione</option>
+                                            <option value="Competente">Competente</option>
+                                            <option value="Aun no competente">Aun no competente</option>
+                                            <option value="No cumple requisitos">No cumple requisitos</option>
+                                            <option value="No aplica">No aplica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Competencias básicas para el puesto</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Liderazgo </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Planeación y organización </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Toma de Decisiones </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Manejo de conflictos y negociación </label></div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Atención y concentración </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Adaptabilidad </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Vocación de servicios </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Capacidad de aprendizaje </label></div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Observación </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Análisis y síntesis </label></div>
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Habilidades de comunicación </label></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Modalidades de Contacto</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Trabajo unitario </label></div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Orientación a resultados </label></div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Integridad </label></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Datos Generales</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Lugar de Nacimiento</label>
+                            <div class="col-sm-10"><input type="text" placeholder="Lugar de Nacimiento" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Escolaridad</label>
+                            <div class="col-sm-10"><input type="text" placeholder="Escolaridad" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Grado</label>
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="slctJuicio">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Básico</option>
+                                    <option value="2">Medio</option>
+                                    <option value="3">Superior</option>
+                                    <option value="4">Posgrado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Bender</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Bender</label>
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="slctJuicio">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">0 - 3: Ausencia de daño</option>
+                                    <option value="2">4: Bordeline</option>
+                                    <option value="3">5 - 6: Alguna evidencia de daño</option>
+                                    <option value="4">7 - 8: Fuerte evidencia de daño</option>
+                                    <option value="5">9 - 12: Muy fuerte evidencia de daño</option>
+                                    <option value="6">No aplica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Especificación del Daño</label>
+                            <div class="col-sm-10"><input type="text" placeholder="Especificación del Daño" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Trayectoria Laboral e Instrumentos de Diagnóstico</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Trayectoria</label>
+                            <div class="col-sm-10"><input type="text" placeholder="Trayectoria Laboral" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Machover </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Figura bajo la lluvia </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Terman Merril </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> MMPI-2 </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Autobiografía </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> CLEAVER </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Test de Lusher </label></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Apreciación temática </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> RAVEN </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> BETA II-R </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> HTP </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> SACKS </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> 16 FP </label></div>
+                                    <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> BETA III-R </label></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Coeficiente Intelectual</label>
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="slctJuicio">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Superior</option>
+                                    <option value="2">Promedio alto</option>
+                                    <option value="3">Promedio</option>
+                                    <option value="4">Promedio bajo</option>
+                                    <option value="5">Bajo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Personaliad</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Fortalezas</label>
+                            <div class="col-sm-10"><textarea class="form-control" rows="7"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Factores de Riesgo</label>
+                            <div class="col-sm-10"><textarea class="form-control" rows="7"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Sintésis Técnica</label>
+                            <div class="col-sm-10"><textarea class="form-control" rows="7"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Recomendaciones</label>
+                            <div class="col-sm-10"><textarea class="form-control" rows="7"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Resutlado</label>
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="slctJuicio">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">Recomendable</option>
+                                    <option value="2">No recomendable</option>
+                                    <option value="3">Recomendable con observaciones</option>
+                                    <option value="4">Aprobado</option>
+                                    <option value="5">No aprobado</option>
+                                    <option value="6">Aprobado con restricciones</option>
+                                    <option value="7">Aprobado con seguimiento</option>
+                                    <option value="8">Sin diagnóstico</option>
+                                    <option value="9">No presentó</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Supervisor</label>
+                            <div class="col-sm-10">
+                                <select class="form-control m-b" name="slctJuicio">
+                                    <option value="">Seleccione</option>
+                                    <option value="1">504</option>
+                                    <option value="2">598</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Evaluación concluida </label></div>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">Guardar Evaluacion</button>
+                            </div>
+                        </div>
+                </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>*@
+         @section scripts
+{
+    <link href="~/Content/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+}

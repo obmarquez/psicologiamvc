@@ -1,0 +1,671 @@
+﻿@model IEnumerable<psicologiamvc.Models.Consultas>
+
+@{
+    ViewBag.Title = "Home Page";
+    int suma = 0;
+    if (Convert.ToInt32(Session["Id_Rol"]) == 5 || Convert.ToInt32(Session["Id_Rol"]) == 10)
+    {
+        suma = ViewBag.totHomMuj.Hombre + ViewBag.totHomMuj.Mujer;
+    }
+}
+
+<input type="hidden" id="idrol" name="idrol" value=@Session["Id_Rol"]>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <h2>Tablero de Avances</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("inicio", "Home")">Inicio</a>
+            </li>
+            <li class="active">
+                <strong>Panel de Control</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+
+    @if (Convert.ToInt32(Session["Id_Rol"]) == 5 || Convert.ToInt32(Session["Id_Rol"]) == 34)
+    {
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">@ViewBag.test.mes</span>
+                        <h5>Raven</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.test.totalRaven</h1>
+                        <div class="stat-percent font-bold text-success"><i class="fa fa-gear"></i></div>
+                        <small>Total Raven</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">@ViewBag.test.mes</span>
+                        <h5>MMPI-2</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.test.totalMine</h1>
+                        <div class="stat-percent font-bold text-info"><i class="fa fa-gear"></i></div>
+                        <small>Total MMPI-2</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">@ViewBag.test.mes</span>
+                        <h5>Terman</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.test.totalTerman</h1>
+                        <div class="stat-percent font-bold text-navy"><i class="fa fa-gear"></i></div>
+                        <small>Total Terman</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">@ViewBag.test.mes</span>
+                        <h5>Cleaver</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.test.totalCleaver</h1>
+                        <div class="stat-percent font-bold text-navy"><i class="fa fa-gear"></i></div>
+                        <small>Total Cleaver</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Grafica - Pruebas psicológicos</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <figure class="highcharts-figure">
+                            <div id="container_c"></div>
+                            @*<p class="highcharts-description">
+                                    A basic column chart compares rainfall values between four cities.
+                                    Tokyo has the overall highest amount of rainfall, followed by New York.
+                                    The chart is making use of the axis crosshair feature, to highlight
+                                    months as they are hovered over.
+                                </p>*@
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Convert.ToInt32(Session["Id_Rol"]) == 5 || Convert.ToInt32(Session["Id_Rol"]) == 10)
+    {
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">@ViewBag.totHomMuj.mes</span>
+                        <h5>Total</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@suma</h1>
+                        <div class="stat-percent font-bold text-success"><i class="fa fa-group"></i></div>
+                        <small>Total mensual</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">@ViewBag.totHomMuj.mes</span>
+                        <h5>Hombres</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.totHomMuj.Hombre</h1>
+                        <div class="stat-percent font-bold text-info"><i class="fa fa-male"></i></div>
+                        <small>Mensual hombres</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">@ViewBag.totHomMuj.mes</span>
+                        <h5>Mujeres</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">@ViewBag.totHomMuj.Mujer</h1>
+                        <div class="stat-percent font-bold text-navy"><i class="fa fa-female"></i></div>
+                        <small>Mensual mujeres</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Grafica Evaluaciones por Mes</h5><span class="label"> Basado en Fecha de Evaluación</span>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
+                                <canvas id="barChart_b" height="80"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        //Area para Hihgchart columnas
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Grafica - Evaluaciones mensuales</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <figure class="highcharts-figure">
+                            <div id="container_b"></div>
+                            @*<p class="highcharts-description">
+                                    Chart showing browser market shares. Clicking on individual columns
+                                    brings up more detailed data. This chart makes use of the drilldown
+                                    feature in Highcharts to easily switch between datasets.
+                                </p>*@
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+
+                    <h5>Grafica Evaluaciones Pendientes por tipo Evaluación <small> 2022 </small></h5>
+
+                </div>
+
+                <div class="ibox-content">
+
+                    <div>
+
+                        <canvas id="barChart" height="140"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-title">
+
+                    <h5>Grafica por Tipo Evaluacion <small> 2022 </small></h5>
+
+                </div>
+
+                <div class="ibox-content">
+
+                    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @if (Convert.ToInt32(Session["Id_Rol"]) == 19)
+    {
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Grafica Avance Mensual <small> 2022 </small></h5>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="container_d" style="min-width: 310px; height: 300px; margin: 0 auto">
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="container_e" style="min-width: 310px; height: 300px; margin: 0 auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section scripts
+{
+    <script src="~/Content/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="~/scriptsHighcharts/highcharts.min.js"></script>
+    <script src="~/scriptsHighcharts/drilldown.min.js"></script>
+    <script src="~/scriptsHighcharts/exporting.min.js"></script>
+    <script src="~/scriptsHighcharts/export-data.min.js"></script>
+    <script src="~/scriptsHighcharts/data.min.js"></script>
+    <script src="~/scriptsHighcharts/accessibility.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //var _idrol = $("#idrol").val();
+            //alert(_idrol);
+        });
+
+        var myArray = [];
+        var par = [];
+        @foreach (var d in Model)
+            {
+            @:par = ['@Html.DisplayFor(modelItem => d.name)',@Html.DisplayFor(modelItem => d.Cantidad)];
+            @:myArray.push(par);
+        }
+        //alert(myArray);
+
+        var myArray_b = [];
+        var tri = [];
+
+        @foreach (var item3 in @ViewBag.anual)
+        {
+
+            //@:tri = ['@item3.mes', parseFloat(@item3.TOTAL), '@item3.mes'];
+            @:tri = ["@item3.mes",parseFloat(@item3.TOTAL), "@item3.mes" ];
+            @:myArray_b.push(tri);
+
+        }
+        //alert(myArray_b);
+
+        //-----------------------------------------------------------para laas grafias de avance de los piscolocos
+        var myArray_avancePsicogo = [];
+        var tri_avance = [];
+
+        @foreach (var item3 in @ViewBag.anual_b)
+        {
+
+            //@:tri = ['@item3.mes', parseFloat(@item3.TOTAL), '@item3.mes'];
+            @:tri_avance = ["@item3.mes",parseFloat(@item3.TOTAL), "@item3.mes" ];
+            @:myArray_avancePsicogo.push(tri_avance);
+
+        }
+
+        //Para la grafica de las evaluaciones mensuales por psicologo
+        var myArrayMes_b = [];
+        var myArrayValor_ra_b = [];
+        var myArrayValor_rb_b = [];
+        var myArrayValor_rm_b = [];
+        var myArrayValor_nc_b = [];
+        @foreach (var item4 in ViewBag.anualDx_b)
+        {
+            @:myArrayMes_b.push("@item4.mes");
+            @:myArrayValor_ra_b.push(@item4.ra);
+            @:myArrayValor_rb_b.push(@item4.rb);
+            @:myArrayValor_rm_b.push(@item4.rm);
+            @:myArrayValor_nc_b.push(@item4.nc);
+        }
+
+        //--------------------------------------------------------------------------------------------------------
+
+        //Para la grafica de las evaluaciones mensuales
+        var myArrarMes = [];
+        var myArrayValorRaven = [];
+        var myArrayValorMine = [];
+        var myArrayValorTerman = [];
+        var myArrayValorCleaver = [];
+        @foreach (var item4 in ViewBag.anualEvaluado)
+        {
+            @:myArrarMes.push("@item4.mes");
+            @:myArrayValorRaven.push(@item4.totalRaven);
+            @:myArrayValorMine.push(@item4.totalMine);
+            @:myArrayValorTerman.push(@item4.totalTerman);
+            @:myArrayValorCleaver.push(@item4.totalCleaver);
+        }
+        //alert(myArrayValorRaven);
+        //alert(myArrayValorMine);
+        //alert(myArrayValorTerman);
+        //alert(myArrayValorCleaver);
+    </script>
+
+    <script>
+
+        //-------------------------------------------------------------------------------------- Grafica de barras
+        $(function () {
+
+            var barData = {
+                labels: ["Nuevo Ingreso", "Permanencia", "Promocion"],
+                datasets: [
+                    {
+                        label: "Estatus",
+                        backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                        pointBorderColor: "#fff",
+                        data: [@ViewBag.nuevoIngreso, @ViewBag.permanencia, @ViewBag.promocion]
+                    }
+                ]
+            };
+
+            var barOptions = {
+                responsive: true
+            };
+
+
+            var ctx2 = document.getElementById("barChart").getContext("2d");
+            new Chart(ctx2, { type: 'bar', data: barData, options: barOptions });
+
+            //----------------------------------------------------------------------------------- Grafica evaluaciones por mes
+            @*var labels_e = [];
+            var data_e = [];
+            @foreach (var item2 in @ViewBag.anual)
+            {
+
+                @:labels_e.push(['@item2.mes']);    
+                @:data_e.push(@item2.TOTAL);        
+              }
+
+            var barData = {
+                labels: labels_e,
+                datasets: [
+                    {
+                        label: "Evaluaciones",
+                        backgroundColor: 'rgba(26,179,148,0.5)',
+                        borderColor: "rgba(26,179,148,0.7)",
+                        pointBackgroundColor: "rgba(26,179,148,1)",
+                        pointBorderColor: "#fff",
+                        data: data_e
+                    }
+                ]
+            };
+
+            var barOptions = {
+                responsive: true
+            };
+
+
+            var ctx2 = document.getElementById("barChart_b").getContext("2d");
+            new Chart(ctx2, { type: 'bar', data: barData, options: barOptions });*@
+            //----------------------------------------------------------------------------------------------------------------
+
+        });
+
+        //-------------------------------------------------------------------------------------- Grafica Pastel praa directora en otro menú
+        Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Gráfica Evaluaciones Pendientes'
+            },
+            subtitle: {
+                text: "Estatus"
+            },
+            tooltip: {
+                pointFormat: '{series.name}: {point.y} (<b>{point.percentage:.1f}%</b>)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.y}'
+                    }
+                }
+            },
+            series: [{
+                name: 'Est',
+                colorByPoint: true,
+                data: myArray
+            }]
+        });
+
+        // Create the chart
+        if ($("#idrol").val() == 5 || $("#idrol").val() == 10) {
+
+            Highcharts.chart('container_b', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Evaluaciones mensuales'
+                },
+                subtitle: {
+                    text: 'Número de evaluaciones basadas en la fecha de evaluación del área'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total evaluaciones al mes. Fecha de evaluación'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> <br/>'
+                },
+
+                series: [
+                    {
+                        name: "Evaluaciones",
+                        colorByPoint: true,
+                        data: myArray_b
+                    }
+                ]
+            });
+
+        }
+
+        if ($("#idrol").val() == 5 || $("#idrol").val() == 34) {
+            Highcharts.chart('container_c', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Pruebas Psicométricas'
+                },
+                subtitle: {
+                    text: 'Mensuales'
+                },
+                xAxis: {
+                    categories: myArrarMes,
+
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Basada Fecha de Alta'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:9px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Raven',
+                    data: myArrayValorRaven
+
+                }, {
+                    name: 'MMPI-2',
+                    data: myArrayValorMine
+
+                }, {
+                    name: 'Terman',
+                    data: myArrayValorTerman
+
+                }, {
+                    name: 'Cleaver',
+                    data: myArrayValorCleaver
+
+                }]
+            });
+        }
+
+        if ($("#idrol").val() == 19) {
+
+            Highcharts.chart('container_d', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Evaluaciones mensuales'
+                },
+                subtitle: {
+                    text: 'Evaluaciones basadas en fecha de evaluación'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Evaluaciones al mes'
+                    }
+
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> <br/>'
+                },
+
+                series: [
+                    {
+                        name: "Evaluaciones",
+                        colorByPoint: true,
+                        data: myArray_avancePsicogo
+                    }
+                ]
+            });
+
+            Highcharts.chart('container_e', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Diagnósticos'
+                },
+                subtitle: {
+                    text: 'Mensuales'
+                },
+                xAxis: {
+                    categories: myArrayMes_b,
+
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Basada Fecha Evaluación'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:9px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y} </b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'RA',
+                    data: myArrayValor_ra_b
+
+                }, {
+                    name: 'RB',
+                    data: myArrayValor_rb_b
+
+                }, {
+                    name: 'RM',
+                    data: myArrayValor_rm_b
+
+                }, {
+                    name: 'NC',
+                    data: myArrayValor_nc_b
+
+                }]
+            });
+        }
+
+    </script>
+
+}

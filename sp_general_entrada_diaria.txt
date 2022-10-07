@@ -1,0 +1,28 @@
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Oscar Bolaños Marquez
+-- Create date: 06/08/2020
+-- Description:	Obtiene la entrada diaria de evaluados
+-- =============================================
+CREATE PROCEDURE sp_general_entrada_diaria
+	-- Add the parameters for the stored procedure here
+	@fecha varchar(10)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	select e.nombre+' '+e.paterno+' '+e.materno evaluado, h.puesto, h.comision, h.cAdscripcion, h.cevaluacion evaluacion, 
+		dbo.ExisteVinculo(h.curp) hayVinculo, desc_dependencia dependencia
+	from tElementosint e inner join tHistorico h on e.curp=h.curp
+		inner join CATALOGO_DEPENDENCIAS d on h.cveinstitucion=d.cve_dependencia
+	where CONVERT(VARCHAR(10), h.fecha_alta, 103) = @fecha and h.precarga = 1
+	order by evaluado
+END
+GO

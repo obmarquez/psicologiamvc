@@ -1,0 +1,107 @@
+USE [Integral]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_admin_asistencia_actualiza_area]    Script Date: 05/08/2020 13:18:10 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		Oscar Bolaños Marquez
+-- Create date: 12/04/2019
+-- Description:	Actualiza las asistencias en cada una de las area
+-- =============================================
+ALTER PROCEDURE [dbo].[sp_admin_asistencia_actualiza_area]
+	-- Add the parameters for the stored procedure here
+	@bToxIn bit,
+	@fToxIn varchar(20),
+	@bToxOut bit,
+	@fTox varchar(20),
+	@bMedIn bit,
+	@fMedIn varchar(20),
+	@bMedOut bit,
+	@fMed varchar(20),
+	@area tinyint,
+	@UserAsist char(10),
+	@diferenciada bit = null,
+	@idHistorico int,
+	@Result varchar(10) output
+AS
+BEGIN
+	
+	begin transaction
+
+		declare @curp varchar(18)
+		declare @idEvaluacion int
+
+		set @curp = dbo.sp_get_curp_idhistorico(@idHistorico)
+		set @idEvaluacion = dbo.sp_get_idevaluacion_idhistorico(@idHistorico)
+
+		if(@area = 5)
+			begin
+				UPDATE tAsistenciaEvals set bToxIn=@bToxIn, fToxIn=@fToxIn, 
+											bToxOut=@bToxOut, fTox=@fTox, 
+											bMedIn=@bMedIn, fMedIn = @fMedIn,
+											bMedOut=@bMedOut, fMed=@fMed, 
+											UserAsist=@UserAsist, fUltModif=getdate()
+				WHERE curp=@curp and idevaluacion=@idEvaluacion
+
+				if(@diferenciada = 1)
+				begin
+					UPDATE tHistorico SET evaldiferenciada = @diferenciada WHERE curp=@curp and idevaluacion=@idevaluacion
+				end
+
+				IF @@Error>0
+					Begin
+						RaisError('Error[1]', 16, 1)
+						Rollback Transaction
+						Return
+					END
+
+				Set @Result = 'Ok'
+			end
+
+		if(@area = 3)
+			begin
+				UPDATE tAsistenciaEvals set bPsico1in=@bToxIn, fPsico1in=@fToxIn, 
+											bPsico1out=@bToxOut, fPsico1out=@fTox, 
+											bPsico2in=@bMedIn, fPsico2in = @fMedIn,
+											bPsico2out=@bMedOut, fPsico2out=@fMed, 
+											UserAsist=@UserAsist, fUltModif=getdate()
+				WHERE curp=@curp and idevaluacion=@idEvaluacion
+
+				IF @@Error>0
+					Begin
+						RaisError('Error[1]', 16, 1)
+						Rollback Transaction
+						Return
+					END
+
+				Set @Result = 'Ok'
+			end
+
+		if(@area = 2)
+			begin
+				UPDATE tAsistenciaEvals set bSoc1in=@bToxIn, fSoc1in=@fToxIn, 
+											bSoc1out=@bToxOut, fSoc1=@fTox, 
+											bSoc2in=@bMedIn, fSoc2in = @fMedIn,
+											bSoc2out=@bMedOut, fSoc2=@fMed, 
+											UserAsist=@UserAsist, fUltModif=getdate()
+				WHERE curp=@curp and idevaluacion=@idEvaluacion
+
+				IF @@Error>0
+					Begin
+						RaisError('Error[1]', 16, 1)
+						Rollback Transaction
+						Return
+					END
+
+				Set @Result = 'Ok'
+			end
+
+	Commit transaction
+
+END
+
+

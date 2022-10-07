@@ -1,0 +1,136 @@
+﻿@model psicologiamvc.Models.Protocolo
+
+@{
+    ViewBag.Title = "Protocolos de Evaluación";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*@Html.HiddenFor(model => model.curp_evaluado, new { id = "curp_evaluado", Value = ViewBag.curp })*@
+    @Html.HiddenFor(model => model.idhistorico, new { id = "idhistorico", Value = ViewBag.sIdH })
+    @Html.HiddenFor(model => model.accion, new { Value = 2 })
+
+    <div class="gray-bg form-horizontal">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="ibox">
+
+                    <div class="ibox-title">
+
+                        <h5>Edicion de los Protocolos de Evaluación</h5>
+
+                    </div>
+
+                    <div class="ibox-content">
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+
+                                <div class="panel panel-info">
+
+                                    <div class="panel-heading">
+
+                                        Las pruebas psicológicas utilizadas son adecuadas al motivo de la evaluación
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div>@Html.CheckBoxFor(model => model.bAbordaje, new { @class = "i-checks" }) <label class="control-label"> Estrategía de Entrevista</label></div>
+                                        <div>@Html.CheckBoxFor(model => model.bRegistroentrevista, new { @class = "i-checks" }) <label class="control-label"> Registro de Entrevista, Notas, Impresión</label></div>
+                                        <div>@Html.CheckBoxFor(model => model.bAclaracionhipotesis, new { @class = "i-checks" }) <label class="control-label"> Aclaración de Hipotésis Planteadas</label></div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="panel panel-info">
+
+                                    <div class="panel-heading">
+
+                                        El reporte psicológico integra la información obtenida en los instrumentos aplicados
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div>@Html.CheckBoxFor(model => model.bCongruenciadiagnostico, new { @class = "i-checks" }) <label class="control-label"> Congruencia entre diagnóstico e instrumentos interpretados</label></div>
+                                        <div>@Html.CheckBoxFor(model => model.bRedaccionclara, new { @class = "i-checks" }) <label class="control-label"> Redacción Clara Sin Contradicción</label></div>
+                                        <div>@Html.CheckBoxFor(model => model.bRespondemotivo, new { @class = "i-checks" }) <label class="control-label"> Responde Al Motivo de Evaluación</label></div>
+                                        <div>@Html.CheckBoxFor(model => model.bPresenciaobservado, new { @class = "i-checks" }) <label class="control-label"> Presencia de Evidencias de lo Observado</label></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6">
+
+                                <div class="panel panel-info">
+
+                                    <div class="panel-heading">
+
+                                        Observaciones, recomendaciones y/o sugerencias
+
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                @Html.TextAreaFor(model => model.cObservacion, new { @class = "form-control", rows = 7 })
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                    <div class="col-sm-12 col-sm-offset-2">
+                        <button class="btn btn-primary" type="submit">Editar Protocolo</button>
+                        @*<button class="btn btn-warning" type="submit">Expediente Supervisado</button>
+                            <button class="btn btn-danger" type="submit">Expediente a Corregir</button>*@
+                        @*<button type="button" class="btn btn-primary" onclick="insertar_evaluacion();">Guardar Evaluacion</button>*@
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@section scripts
+{
+    <link href="~/Content/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/Scripts/js-protocolo.js"></script>
+
+    <script language="javascript">
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+            });
+    </script>
+}

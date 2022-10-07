@@ -1,0 +1,39 @@
+-- =============================================
+ALTER PROCEDURE [dbo].[sp_admin_asistencia_recupera_area]
+	-- Add the parameters for the stored procedure here
+	@idHistorico int,
+	@idArea int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	declare @curp varchar(18)
+	declare @idEvaluacion int
+
+	set @curp = dbo.sp_get_curp_idhistorico(@idHistorico)
+	set @idEvaluacion = dbo.sp_get_idevaluacion_idhistorico(@idHistorico)
+
+    -- Insert statements for procedure here
+	if(@idArea = 5)	--asistencia de médicos
+	begin
+		select idAsistencia, curp, idevaluacion, bToxIn, fToxIn, bToxOut, fTox, bTox, bMedIn, fMedIn, bMedOut, fMed, bMed from tAsistenciaEvals
+		where curp=@curp and idevaluacion = @idEvaluacion
+	end
+
+	if(@idArea = 2)	--asistencia de socios
+	begin
+		select idAsistencia, curp, idevaluacion, bSoc1in AS bToxIn, fSoc1in AS fToxIn, bSoc1out AS bToxOut, fSoc1 AS fTox, bSoc1 AS bTox, 
+			bSoc2in AS bMedIn, fSoc2in AS fMedIn, bSoc2out AS bMedOut, fSoc2 AS fMed, bSoc2 AS bMed from tAsistenciaEvals
+		where curp=@curp and idevaluacion = @idEvaluacion
+	end
+
+	if(@idArea = 3)
+	begin
+		select idAsistencia, curp, idevaluacion, bPsico1in, fPsico1in, bPsico1out, fPsico1out, bPsico1, bPsico2in, fPsico2in, bPsico2out,
+			fPsico2out, bPsico2 from tAsistenciaEvals
+		where curp=@curp and idevaluacion = @idEvaluacion
+	end
+END
+

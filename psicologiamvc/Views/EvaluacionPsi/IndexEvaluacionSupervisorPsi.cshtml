@@ -1,0 +1,343 @@
+﻿@model IEnumerable<psicologiamvc.Models.Consultas>
+
+@{
+    ViewBag.Title = "IndexEvaluacionSupervisor";
+}
+
+@using (Html.BeginForm("IndexEvaluacionSupervisorPsi", "EvaluacionPsi", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Busqueda Evaluados
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.TextBox("cadena", "", new { @class = "form-control", placeholder = "Paterno Materno Nombre - Evaluado" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dataTables-example">
+            <thead>
+                <tr>
+                    <th>IdH</th>
+                    <th>Evaluado</th>
+                    <th>Evaluacion</th>
+                    <th>Estatus</th>
+                    <th>Fecha</th>
+                    <th>Dependencia / Puesto / Adscripcion</th>
+                    <th>NoCon</th>
+                    <th>Vinculos</th>
+                    <th>Psi</th>
+                    <th>Foto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(modelItem => item.curp)
+                    <tr>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.IdH)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.evaluado)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.evaluacion)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.estatus)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.fecha)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            <p>
+                                @Html.DisplayFor(modelItem => item.dependencia)
+                            </p>
+                            <p>
+                                @Html.DisplayFor(modelItem => item.puesto)
+                            </p>
+                            <p>
+                                @Html.DisplayFor(modelItem => item.cAdscripcion)
+                            </p>
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.NoCon)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.hayVinculo)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @Html.DisplayFor(modelItem => item.UsuarioSise)
+                        </td>
+                        <td style="vertical-align:middle;">
+                            <img width="100" height="120" src="@Url.Action("convertirImagen", "EvaluacionPsi", new { _IdH = item.IdH })" />
+                        </td>
+                        <td style="vertical-align:middle;">
+                            @*@if (item.estatus != 5 && item.estatus != 0)
+                            {
+                                <p>
+                                    @Html.ActionLink("Editar Evaluacion", "EditarPsi", new { sIdH = item.IdH, elEvaluado = item.evaluado }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @Html.ActionLink("Nueva Evaluacion", "NuevoPsi", new { sIdH = item.IdH, elEvaluado = item.evaluado }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }*@
+
+                            @if (item.Hay == 0)
+                            {
+                                <p>
+                                    @Html.ActionLink("Nueva Evaluacion", "NuevoPsi", new { sIdH = item.IdH, elEvaluado = item.evaluado }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @Html.ActionLink("Editar Evaluacion", "EditarPsi", new { sIdH = item.IdH, elEvaluado = item.evaluado }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }
+
+                            @if (item.estatus != 0)
+                            {
+                                <p>
+                                    <a class="popup btn btn-block btn-outline btn-primary btn-xs" href="../Impresiones/printInvestigacionPsicologica?sIdH=@item.IdH" target="_blank">Ver Investigacion</a>
+                                </p>
+                            }
+
+                            @if (item.Protocolo == 0)
+                            {
+                                <p>
+                                    <a href="~/Protocolo/IndexProtocolo?sIdH=@item.IdH" class="btn btn-block btn-outline btn-primary btn-xs">Add Protocolos</a>
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    <a href="~/Protocolo/EditarProtocolo?sIdH=@item.IdH" class="btn btn-block btn-outline btn-primary btn-xs">Upd Protocolos</a>
+                                </p>
+                            }
+
+                            @if (item.Vinculo != 0)
+                            {
+                                <p>
+                                    @Html.ActionLink("Ver Vinculos", "NuevoPsi", new { sIdH = item.IdH }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }
+
+                            @if (item.hayTat == "Si")
+                            {
+                                <p>
+                                    @*<input id="red" name="red" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Tatuajes" onclick="mostrarTatuaje('@item.curp')" />*@
+                                    <input id="red" name="red" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Tatuajes" onclick="mostrarTatuaje(@item.IdH)" />
+                                </p>
+                            }
+
+                            @if (item.estatus != 5)
+                            {
+                                <p>
+                                    <input id="correc" name="correc" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Para Correccion" onclick="aCorrecion(@item.IdH)" />
+                                </p>
+
+                                <p>
+                                    <input id="direcc" name="direcc" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Para Direccion" onclick="aDireccion(@item.IdH)" />
+                                </p>
+                            }
+                            else if (Convert.ToInt32(Session["Id_Rol"]) == 5)
+                            {
+                                <p>
+                                    <input id="correc" name="correc" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Para Correccion" onclick="aCorrecion(@item.IdH)" />
+                                </p>
+
+                                <p>
+                                    <input id="direcc" name="direcc" type="button" class="btn btn-block btn-outline btn-primary btn-xs" value="Para Direccion" onclick="aDireccion(@item.IdH)" />
+                                </p>
+                            }
+
+                            @if (item.Indice > 0)
+                            {
+                                <p>
+                                    @Html.ActionLink("Editar Indice Expediente", "IndiceEvaluacionEditarPsi", new { sIdH = item.IdH }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                                <p>
+                                    <a class="popup btn btn-block btn-outline btn-primary btn-xs" href="../Impresiones/printIndice?sIdH=@item.IdH" target="_blank">Ver Indice</a>
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @Html.ActionLink("Agregar Indice Expediente", "IndiceEvaluacionPsi", new { sIdH = item.IdH }, htmlAttributes: new { @class = "btn btn-block btn-outline btn-primary btn-xs" })
+                                </p>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    //------------------------------ Ventana Modal de Boton Para Correccion por los investigadores
+    <div class="modal inmodal" id="modalCorreccion" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Correccion de Expediente por Psicologo</h4>
+                    <small class="font-bold">Estatus 6</small>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <label class="control-label"> Enviar a Correccion</label>
+                </div>
+                <div class="modal-footer">
+                    @Html.Hidden("IdHC")
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="aCorrecion02();">Enviar a Correccion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    //------------------------------ Ventana Modal de Boton para Dirección
+    <div class="modal inmodal" id="modalDireccion" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Enviar expediente a Director del Area</h4>
+                    <small class="font-bold">Estatus 4</small>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <label class="control-label"> Enviar a Director</label>
+                </div>
+                <div class="modal-footer">
+                    @Html.Hidden("IdHD")
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="aDireccion02();">Enviar a Direccion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*modal para ver tatuajes*@
+    <div class="modal inmodal" id="verTatuaje" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Detallado de Tatuajes</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Hidden("idh")
+                    <div id="divDetalle">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts
+{
+    @*CSS*@
+    <link href="~/Content/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    @*JS*@
+    <script src="~/Content/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script language="javascript">
+
+        function aCorrecion(idh) {
+            //alert(idh);
+            $('#IdHC').val(idh);
+            $('#modalCorreccion').modal('show');
+        }
+
+        function aCorrecion02() {
+            var _IdHC = $("#IdHC").val();
+            var _opcion = 1;
+            //alert(_IdHC);
+
+            $.ajaxSetup({ async: true });
+
+            $.post("js_ActualizaEstatusPsi", { pidhistorico: _IdHC, popcion: _opcion },
+                function (data) {
+                    if (data == "SESSION EXPIRED") { showReiniciarSesion(); }
+                    else if (data == "Ok") {
+                        $('#modalCorreccion').modal('hide');
+                        swal({
+                            title: "Expediente a Corrección",
+                            text: "Haga click para continuar",
+                            type: "success"
+                        });
+                    }
+                    else { showMessage("Ocurrio un error, intente de nuevo.", "#msgBandeja", "danger", "warning"); }
+                })
+                .fail(function (result) {
+                    showMessage("Ocurrio un error:" + result.statusText + ", intente de nuevo. ", "#msgBandeja", "danger", "warning");
+                });
+        }
+
+        function aDireccion(idh) {
+            //alert(idh);
+            $('#IdHD').val(idh);
+            $('#modalDireccion').modal('show');
+        }
+
+        function aDireccion02() {
+            var _IdHD = $("#IdHD").val();
+            var _opcion = 2;
+
+            $.ajaxSetup({ async: true });
+
+            $.post("js_ActualizaEstatusPsi", { pidhistorico: _IdHD, popcion: _opcion },
+                function (data) {
+                    if (data == "SESSION EXPIRED") { showReiniciarSesion(); }
+                    else if (data == "Ok") {
+                        $('#modalDireccion').modal('hide');
+                        swal({
+                            title: "Expediente a Direccion",
+                            text: "Haga click para continuar",
+                            type: "success"
+                        });
+                    }
+                    else { showMessage("Ocurrio un error, intente de nuevo.", "#msgBandeja", "danger", "warning"); }
+                })
+                .fail(function (result) {
+                    showMessage("Ocurrio un error:" + result.statusText + ", intente de nuevo. ", "#msgBandeja", "danger", "warning");
+                });
+        }
+
+        function mostrarTatuaje(IdH) {
+            //alert(IdH);
+            //$('#curpTatuaje').val(curp);
+            //var _curp = $('#curpTatuaje').val(curp);
+
+            $("#divDetalle").empty();
+            $('#verTatuaje').modal('show');
+            var url = "@Url.Action("seccionDetalle", "EvaluacionPsi")";
+            var data = { IdH: IdH, idt: 0, opcion: 1 };
+            $.get(url, data).done(function (data) {
+                $("#divDetalle").append(data);
+            }).fail(manejarErrorAjax);
+        }
+
+    </script>
+}
